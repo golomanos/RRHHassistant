@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:terathon2020/src/providers/db_provider.dart';
 
-class TechnicalInterviewPage extends StatefulWidget {
-  //TechnicalInterviewPage({Key key}) : super(key: key);
+class TechnicalFeedbackPage extends StatefulWidget {
+  //TechnicalFeedbackPage({Key key}) : super(key: key);
 
   @override
-  _TechnicalInterviewPageState createState() => _TechnicalInterviewPageState();
+  _TechnicalFeedbackPageState createState() => _TechnicalFeedbackPageState();
 }
 
-class _TechnicalInterviewPageState extends State<TechnicalInterviewPage> {
+class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
   final header = GoogleFonts.poppins(
       fontSize: 20.0,
       color: Color.fromARGB(100, 117, 117, 117),

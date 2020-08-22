@@ -7,6 +7,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
     '/': (BuildContext context) => HomePage(),
     'candidate': (BuildContext context) => AddCandidatePage(),
-    'techinterview': (BuildContext context) => TechnicalInterviewPage()
+    'techfeedback': (BuildContext context) => TechnicalFeedbackPage()
   };
 }
