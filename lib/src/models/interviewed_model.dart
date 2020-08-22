@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-Interviewed interviewedFromJson(String str) => Interviewed.fromJson(json.decode(str));
+Interviewed interviewedFromMap(String str) => Interviewed.fromMap(json.decode(str));
 
 String interviewedToMap(Interviewed data) => json.encode(data.toMap());
 
@@ -17,6 +17,7 @@ class Interviewed {
         this.phone,
         this.skills,
         this.status,
+        this.area,
         this.rrhhInterviewer,
         this.rrhhFeedback,
         this.rejectReason,
@@ -36,6 +37,7 @@ class Interviewed {
     String phone;
     String skills;
     String status;
+    String area;
     String rrhhInterviewer;
     String rrhhFeedback;
     String rejectReason;
@@ -43,7 +45,7 @@ class Interviewed {
     String technicalFeedback;
     String levelRecommendation;
 
-    factory Interviewed.fromJson(Map<String, dynamic> json) => Interviewed(
+    factory Interviewed.fromMap(Map<String, dynamic> json) => Interviewed(
         id: json["id"],
         firstName: json["first_name"],
         lastName: json["last_name"],
@@ -53,7 +55,7 @@ class Interviewed {
         country: json["country"],
         company: json["company"],
         phone: json["phone"],
-        skills: json["skills"],
+        area: json["area"],
         status: json["status"],
         rrhhInterviewer: json["rrhh_interviewer"],
         rrhhFeedback: json["rrhh_feedback"],
@@ -72,6 +74,7 @@ class Interviewed {
         "linkedin_url": linkedinUrl,
         "country": country,
         "company": company,
+        "area": area,
         "phone": phone,
         "skills": skills,
         "status": status,

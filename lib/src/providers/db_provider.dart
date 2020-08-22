@@ -22,7 +22,7 @@ class DBProvider {
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "test1.db");
+    String path = join(documentsDirectory.path, "test2.db");
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute("CREATE TABLE interviewed ("
@@ -37,6 +37,7 @@ class DBProvider {
           "phone TEXT,"
           "skills TEXT,"
           "status TEXT,"
+          "area TEXT,"
           "rrhh_interviewer TEXT,"
           "rrhh_feedback TEXT,"
           "reject_reason TEXT,"
@@ -49,9 +50,53 @@ class DBProvider {
 
   newInterviewed(Interviewed newInterviewed) async {
     final db = await database;
-    print(newInterviewed);
     var res = await db.insert("interviewed", newInterviewed.toMap());
-    print(res);
+    return res;
+  }
+
+  applyFilters(String status, String area, String interviewer) async {
+    final db = await database;
+    var res = await db.rawQuery("SELECT * FROM interviewed WHERE status LIKE '%$status%' AND area LIKE '%$area%' AND rrhh_interviewer LIKE '%$interviewer%'");
+    List<Interviewed> list =
+        res.isNotEmpty ? res.map((c) => Interviewed.fromMap(c)).toList() : [];
+    return list;
+  }
+
+  getInterviewed(int id) async {
+    final db = await database;
+    var res = await  db.query("interviewed", where: "id = ?", whereArgs: [id]);
+    return res.isNotEmpty ? Interviewed.fromMap(res.first) : Null ;
+  }
+
+  search( String term )  async {
+    final db = await database;
+    var res = await db.rawQuery("SELECT * FROM interviewed WHERE first_name LIKE '%$term%' OR last_name LIKE '%$term%' OR email LIKE '%$term%'");
+    List<Interviewed> list =
+        res.isNotEmpty ? res.map((c) => Interviewed.fromMap(c)).toList() : [];
+    return list;
+  }
+
+  addInterviewerFeedback( String feedback, int id ) async {
+    final db = await database;
+    var res = await db.rawUpdate("UPDATE interviewed SET rrhh_feedback = ?, status = 'Ready for Technical Interview' WHERE id = ?", [feedback, id]);
+    return res;
+  }
+
+  addTechnicalFeedback( String feedback, String interviewer, int id ) async {
+    final db = await database;
+    var res = await db.rawUpdate("UPDATE interviewed SET technical_feedback = ?, status = 'Pending for Proposal', technical_interviewer = ?  WHERE id = ?", [feedback, interviewer, id]);
+    return res;
+  }
+
+  reject( String reason, int id ) async {
+    final db = await database;
+    var res = await db.rawUpdate("UPDATE interviewed SET reject_reason = ?, status = 'Rejected'  WHERE id = ?", [reason, id]);
+    return res;
+  }
+
+  hired( int id ) async {
+    final db = await database;
+    var res = await db.rawUpdate("UPDATE interviewed SET status = 'Hired' WHERE id = ?", [id]);
     return res;
   }
 
