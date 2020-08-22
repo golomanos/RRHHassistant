@@ -54,9 +54,9 @@ class DBProvider {
     return res;
   }
 
-  applyFilters(String status, String area, String interviewer) async {
+  applyFilters(String status) async {
     final db = await database;
-    var res = await db.rawQuery("SELECT * FROM interviewed WHERE status LIKE '%$status%' AND area LIKE '%$area%' AND rrhh_interviewer LIKE '%$interviewer%'");
+    var res = await db.rawQuery("SELECT * FROM interviewed WHERE status LIKE '%$status%'");
     List<Interviewed> list =
         res.isNotEmpty ? res.map((c) => Interviewed.fromMap(c)).toList() : [];
     return list;
