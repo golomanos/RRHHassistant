@@ -8,6 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Teravision Recruitment Assistant',
+        theme: ThemeData(fontFamily: 'Poppins'),
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: getApplicationRoutes());
