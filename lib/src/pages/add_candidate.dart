@@ -55,7 +55,9 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0.0,
         iconTheme: Theme.of(context)
             .primaryIconTheme
             .copyWith(color: Color.fromARGB(100, 117, 117, 117)),

@@ -22,6 +22,22 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: Colors.white,
+          title: Image(
+            alignment: AlignmentDirectional.centerStart,
+            image: AssetImage('assets/images/teravisionlogo.png'),
+            height: 21.0,
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search, color: Color.fromRGBO(0, 45, 116, 1),),
+              onPressed: () {},
+            )
+          ],
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, 'candidate');
@@ -33,29 +49,10 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.only(top: 60.0, left: 16.0, right: 0.0),
+              margin: EdgeInsets.only(top: 30.0, left: 16.0, right: 0.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Image(
-                          alignment: AlignmentDirectional.centerStart,
-                          image: AssetImage('assets/images/teravisionlogo.png'),
-                          height: 21.0,
-                        ),
-                      ),
-                      Container(
-                          child: Image(
-                        image: AssetImage('assets/images/filter_icon.png'),
-                        height: 48.0,
-                      )),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
                   Text(
                     'Welcome to your',
                     style: TextStyle(
@@ -81,6 +78,9 @@ class _HomePageState extends State<HomePage> {
               height: 40.0,
             ),
             Container(height: 35.0, child: _createChips(_activeChip)),
+            SizedBox(
+              height: 20.0,
+            ),
             Expanded(child: _list.length > 0 ? _creaList() : _showMessage())
           ],
         ));
@@ -254,7 +254,7 @@ class _HomePageState extends State<HomePage> {
           elevation: 0.0,
           onPressed: () {
             _activeChip = 3;
-            _getListElements('In Proposal');
+            _getListElements('RRHH review');
           },
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -262,7 +262,7 @@ class _HomePageState extends State<HomePage> {
               ? Color.fromRGBO(103, 166, 94, 1)
               : Color.fromRGBO(226, 226, 226, 1),
           child: Text(
-            'In Proposal',
+            'RRHH review',
             style: TextStyle(
                 color: active == 3
                     ? Colors.white
@@ -325,7 +325,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _getInterviewerImage(String rrhhInterviewer) {
     AssetImage image;
-    if(rrhhInterviewer == 'Claudia Dos Santos') {
+    if (rrhhInterviewer == 'Claudia Dos Santos') {
       image = AssetImage('assets/images/claudia.png');
     } else if (rrhhInterviewer == 'Yessnehidy Contreras') {
       image = AssetImage('assets/images/yessnehidy.png');
