@@ -148,16 +148,99 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
             height: 46.0,
             child: RaisedButton(
               textColor: Colors.white,
-              onPressed: () {
-                DBProvider.db
-                    .addInterviewerFeedback(_techFeedback, _candidateId);
-                Navigator.pushNamed(context, '/');
-              },
+              onPressed: () => _sendFeedbackAlert(context),
               color: Color.fromRGBO(0, 45, 116, 0.9),
               child: Text(
                 'SEND TECHNICAL FEEDBACK',
                 style: GoogleFonts.poppins(fontSize: 14.0, color: Colors.white),
               ),
             )));
+  }
+
+  void _sendFeedbackAlert(BuildContext context) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Did you already finished this interview?',
+                  style: style,
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
+            actions: [
+              Center(
+                child: RaisedButton(
+                  onPressed: () {
+                    /*DBProvider.db
+                        .addInterviewerFeedback(_techFeedback, _candidateId);*/
+                    _greetinsAlert(context);
+                  },
+                  color: Color.fromRGBO(0, 45, 116, 0.9),
+                  shape: StadiumBorder(),
+                  child: Text('YES, SEND MY FEEDBACK',
+                      style: GoogleFonts.poppins(
+                          fontSize: 14.0, color: Colors.white)),
+                ),
+              ),
+              Center(
+                child: RaisedButton(
+                  elevation: 0.0,
+                  onPressed: () => Navigator.of(context).pop(),
+                  color: Colors.white,
+                  shape: StadiumBorder(),
+                  child: Text(
+                    'NO, CANCEL',
+                    style: style,
+                  ),
+                ),
+              )
+            ],
+          );
+        });
+  }
+
+  void _greetinsAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Your feedback has already been sent. Thanks for being part of our interviwers team',
+                style: GoogleFonts.poppins(
+                    fontSize: 14.0, fontWeight: FontWeight.w500),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+          actions: [
+            Center(
+              child: RaisedButton(
+                  elevation: 0.0,
+                  shape: StadiumBorder(),
+                  color: Color.fromRGBO(0, 45, 116, 0.9),
+                  onPressed: () => Navigator.pushNamed(context, '/'),
+                  child: Text(
+                    'OK',
+                    style: GoogleFonts.poppins(fontSize: 14),
+                  )),
+            )
+          ],
+        );
+      },
+    );
   }
 }
