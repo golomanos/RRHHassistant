@@ -86,7 +86,8 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 
-  Widget _createCard(double value) {
+  Widget _createCard(double value, int index) {
+    final element = _list[index];
     return Card(
       margin: EdgeInsets.only(right: 16.0, left: 16.0, top: 8.0, bottom: 8.0),
       elevation: 5.0,
@@ -97,14 +98,14 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Barbara Muñoz',
+              '${element.firstName} ${element.lastName}',
               style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
                   color: Color.fromRGBO(117, 117, 117, 1)),
             ),
             SizedBox(height: 5.0),
-            Text('UX/UI Designer . Colombia',
+            Text('${element.area} . ${element.country}',
                 style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.w500,
@@ -124,12 +125,10 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 20.0),
             Row(
               children: [
-                Image(
-                    image: AssetImage('assets/images/claudia.png'),
-                    height: 25.0),
+                _getInterviewerImage(element.rrhhInterviewer),
                 Container(
                   margin: EdgeInsets.only(left: 5.0),
-                  child: Text('Claudia dos Santos',
+                  child: Text('${element.rrhhInterviewer}',
                       style: TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w600,
@@ -166,7 +165,24 @@ class _HomePageState extends State<HomePage> {
     return ListView.builder(
         itemCount: _list.length,
         itemBuilder: (BuildContext context, int index) {
-          return _createCard(0.25);
+          double value = 0.0;
+          switch (_activeChip) {
+            case 1:
+              value = 0.25;
+              break;
+            case 2:
+              value = 0.50;
+              break;
+            case 3:
+              value = 0.75;
+              break;
+            case 4:
+              value = 1.0;
+              break;
+            default:
+              value = 0.0;
+          }
+          return _createCard(value, index);
         });
   }
 
@@ -192,10 +208,11 @@ class _HomePageState extends State<HomePage> {
             _activeChip = 1;
             _getListElements('RRHH Interview');
           },
-          shape:  RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0)
-          ),
-          color: active == 1 ?  Color.fromRGBO(0, 101, 130, 1) : Color.fromRGBO(226, 226, 226, 1),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          color: active == 1
+              ? Color.fromRGBO(0, 101, 130, 1)
+              : Color.fromRGBO(226, 226, 226, 1),
           child: Text(
             'RRHH Interview',
             style: TextStyle(
@@ -212,13 +229,14 @@ class _HomePageState extends State<HomePage> {
         child: RaisedButton(
           elevation: 0.0,
           onPressed: () {
-              _activeChip = 2;
-              _getListElements('Technical Interview');
+            _activeChip = 2;
+            _getListElements('Technical Interview');
           },
-          shape:  RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0)
-          ),
-          color: active == 2 ?  Color.fromRGBO(87, 146, 123, 1) : Color.fromRGBO(226, 226, 226, 1),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          color: active == 2
+              ? Color.fromRGBO(87, 146, 123, 1)
+              : Color.fromRGBO(226, 226, 226, 1),
           child: Text(
             'Technical Interview',
             style: TextStyle(
@@ -238,10 +256,11 @@ class _HomePageState extends State<HomePage> {
             _activeChip = 3;
             _getListElements('In Proposal');
           },
-          shape:  RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0)
-          ),
-          color: active == 3 ?  Color.fromRGBO(103, 166, 94, 1) : Color.fromRGBO(226, 226, 226, 1),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          color: active == 3
+              ? Color.fromRGBO(103, 166, 94, 1)
+              : Color.fromRGBO(226, 226, 226, 1),
           child: Text(
             'In Proposal',
             style: TextStyle(
@@ -261,10 +280,11 @@ class _HomePageState extends State<HomePage> {
             _activeChip = 4;
             _getListElements('Hired');
           },
-          shape:  RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0)
-          ),
-          color: active == 4 ?  Color.fromRGBO(119, 185, 66, 1) : Color.fromRGBO(226, 226, 226, 1),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          color: active == 4
+              ? Color.fromRGBO(119, 185, 66, 1)
+              : Color.fromRGBO(226, 226, 226, 1),
           child: Text(
             'Hired',
             style: TextStyle(
@@ -284,10 +304,11 @@ class _HomePageState extends State<HomePage> {
             _activeChip = 5;
             _getListElements('Rejected');
           },
-          shape:  RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0)
-          ),
-          color: active == 5 ?  Color.fromRGBO(117, 117, 117, 1) : Color.fromRGBO(226, 226, 226, 1),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          color: active == 5
+              ? Color.fromRGBO(117, 117, 117, 1)
+              : Color.fromRGBO(226, 226, 226, 1),
           child: Text(
             'Rejected',
             style: TextStyle(
@@ -300,5 +321,17 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     ]);
+  }
+
+  Widget _getInterviewerImage(String rrhhInterviewer) {
+    AssetImage image;
+    if(rrhhInterviewer == 'Claudia Dos Santos') {
+      image = AssetImage('assets/images/claudia.png');
+    } else if (rrhhInterviewer == 'Yessnehidy Contreras') {
+      image = AssetImage('assets/images/yessnehidy.png');
+    } else {
+      image = AssetImage('assets/images/claudia.png');
+    }
+    return Image(image: image, height: 25.0);
   }
 }

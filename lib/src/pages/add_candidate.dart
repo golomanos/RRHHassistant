@@ -41,10 +41,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   List<String> _residenceCountry = ['Venezuela', 'Colombia', 'México', 'EEUU'];
   List<String> _assignedRecruiter = [
     'Claudia Dos Santos',
-    'Yessnehidy Contreras',
-    'Edgard Rendón',
-    'Joaquin Molina',
-    'Omar Fariñez'
+    'Yessnehidy Contreras'
   ];
 
   List<String> _workArea = [
