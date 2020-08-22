@@ -68,7 +68,7 @@ class DBProvider {
     return res.isNotEmpty ? Interviewed.fromMap(res.first) : Null ;
   }
 
-  search( String term )  async {
+  Future<List<Interviewed>> search( String term )  async {
     final db = await database;
     var res = await db.rawQuery("SELECT * FROM interviewed WHERE first_name LIKE '%$term%' OR last_name LIKE '%$term%' OR email LIKE '%$term%'");
     List<Interviewed> list =

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:terathon2020/src/providers/db_provider.dart';
 import 'package:terathon2020/src/models/interviewed_model.dart';
+import 'package:terathon2020/src/search/search_delegate.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -33,8 +34,13 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.search, color: Color.fromRGBO(0, 45, 116, 1),),
-              onPressed: () {},
+              icon: Icon(
+                Icons.search,
+                color: Color.fromRGBO(0, 45, 116, 1),
+              ),
+              onPressed: () {
+                showSearch(context: context, delegate: DataSearch());
+              },
             )
           ],
         ),
@@ -88,57 +94,63 @@ class _HomePageState extends State<HomePage> {
 
   Widget _createCard(double value, int index) {
     final element = _list[index];
-    return Card(
-      margin: EdgeInsets.only(right: 16.0, left: 16.0, top: 8.0, bottom: 8.0),
-      elevation: 5.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-      child: Container(
-        margin: EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${element.firstName} ${element.lastName}',
-              style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(117, 117, 117, 1)),
-            ),
-            SizedBox(height: 5.0),
-            Text('${element.area} . ${element.country}',
+    return GestureDetector(
+      child: Card(
+        margin: EdgeInsets.only(right: 16.0, left: 16.0, top: 8.0, bottom: 8.0),
+        elevation: 5.0,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+        child: Container(
+          margin: EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '${element.firstName} ${element.lastName}',
                 style: TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.w500,
-                    color: Color.fromRGBO(149, 149, 149, 1))),
-            SizedBox(height: 20.0),
-            Container(
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                child: LinearProgressIndicator(
-                  value: value,
-                  backgroundColor: Color.fromRGBO(226, 226, 226, 1),
-                  minHeight: 6.0,
-                  valueColor: AlwaysStoppedAnimation<Color>(_getColor(value)),
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromRGBO(117, 117, 117, 1)),
+              ),
+              SizedBox(height: 5.0),
+              Text('${element.area} . ${element.country}',
+                  style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromRGBO(149, 149, 149, 1))),
+              SizedBox(height: 20.0),
+              Container(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  child: LinearProgressIndicator(
+                    value: value,
+                    backgroundColor: Color.fromRGBO(226, 226, 226, 1),
+                    minHeight: 6.0,
+                    valueColor: AlwaysStoppedAnimation<Color>(_getColor(value)),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20.0),
-            Row(
-              children: [
-                _getInterviewerImage(element.rrhhInterviewer),
-                Container(
-                  margin: EdgeInsets.only(left: 5.0),
-                  child: Text('${element.rrhhInterviewer}',
-                      style: TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w600,
-                          color: Color.fromRGBO(149, 149, 149, 1))),
-                )
-              ],
-            )
-          ],
+              SizedBox(height: 20.0),
+              Row(
+                children: [
+                  _getInterviewerImage(element.rrhhInterviewer),
+                  Container(
+                    margin: EdgeInsets.only(left: 5.0),
+                    child: Text('${element.rrhhInterviewer}',
+                        style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromRGBO(149, 149, 149, 1))),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
+      onTap: () {
+        print('element clicked');
+      },
     );
   }
 
