@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:terathon2020/src/models/interviewed_model.dart';
+import 'package:terathon2020/src/providers/db_provider.dart';
 
 class AddCandidatePage extends StatefulWidget {
   //AddCandidatePage({Key key}) : super(key: key);
@@ -12,7 +14,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   String _name = '';
   String _lastname = '';
   String _email = '';
-  String _date = '';
+  String _recruiterOpt = null;
+  //String _date = '';
   String _selectedOption = null;
   String _countryOpt = null;
   String _linkedIn = '';
@@ -20,6 +23,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   String _phoneNumber = '';
   String _skills = '';
   String _jobPosition = '';
+  String _workOpt = null;
 
   final style = GoogleFonts.poppins(
       fontSize: 14.0, color: Color.fromARGB(100, 117, 117, 117));
@@ -27,22 +31,41 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   final header = GoogleFonts.poppins(
       fontSize: 20.0,
       color: Color.fromARGB(100, 117, 117, 117),
-      fontWeight: FontWeight.w600);
+      fontWeight: FontWeight.w500);
 
   final textStyle =
-      TextStyle(fontSize: 14.0, color: Color.fromRGBO(149, 149, 149, 0.5));
+      TextStyle(fontSize: 14.0, color: Color.fromARGB(100, 117, 117, 117));
 
-  TextEditingController _inputFieldDateController = new TextEditingController();
+  //TextEditingController _inputFieldDateController = new TextEditingController();
 
   List<String> _englishLevel = ['Básico', 'Intermedio', 'Avanzado', 'Nativo'];
   List<String> _residenceCountry = ['Venezuela', 'Colombia', 'México', 'EEUU'];
+  List<String> _assignedRecruiter = [
+    'Claudia Dos Santos',
+    'Yessnehidy Contreras',
+    'Edgard Rendón',
+    'Joaquin Molina',
+    'Omar Fariñez'
+  ];
+
+  List<String> _workArea = [
+    'Developer',
+    'QA Analyst',
+    'QA Automation'
+        'UX/UI Design',
+    'Human Resources',
+    'Project Management'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: Theme.of(context)
+            .primaryIconTheme
+            .copyWith(color: Color.fromARGB(100, 117, 117, 117)),
         backgroundColor: Colors.white,
         title: Text(
-          'Agregar candidato',
+          'Add a candidate',
           style: header,
         ),
       ),
@@ -52,6 +75,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
         children: [
           Column(
             children: [
+              _createRecruiter(),
+              SizedBox(height: 5.0),
               _linkedInUrl(),
               SizedBox(height: 5.0),
               _jobSeat(),
@@ -62,8 +87,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
               SizedBox(height: 5.0),
               _createLastName(),
               SizedBox(height: 5.0),
-              _createDate(context),
-              SizedBox(height: 5.0),
+              //_createDate(context),
+              //SizedBox(height: 5.0),
               _country(),
               SizedBox(height: 5.0),
               _createEmail(),
@@ -73,12 +98,32 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
               _englishLevelDropDown(),
               SizedBox(height: 5.0),
               _createSkills(),
-              SizedBox(height: 5.0),
+              SizedBox(height: 20.0),
               _submitButton()
             ],
           ),
         ],
       )),
+    );
+  }
+
+  _createRecruiter() {
+    return Container(
+      width: double.infinity,
+      child: DropdownButton(
+          isExpanded: true,
+          hint: Text(
+            'Assigned Recruiter',
+            style: style,
+          ),
+          icon: Icon(Icons.arrow_drop_down),
+          value: _recruiterOpt,
+          items: getDropDownOptions(_assignedRecruiter),
+          onChanged: (opt) {
+            setState(() {
+              _recruiterOpt = opt;
+            });
+          }),
     );
   }
 
@@ -92,8 +137,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
           hintStyle: textStyle,
           labelStyle: textStyle,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintText: "Nombre",
-          labelText: 'Nombre'),
+          hintText: "Name",
+          labelText: 'Name'),
       onChanged: (value) {
         setState(() {
           _name = value;
@@ -110,8 +155,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintText: "Apellido",
-          labelText: 'Apellido'),
+          hintStyle: textStyle,
+          labelStyle: textStyle,
+          hintText: "Last Name",
+          labelText: 'Last Name'),
       onChanged: (value) {
         setState(() {
           _lastname = value;
@@ -126,6 +173,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+          hintStyle: textStyle,
+          labelStyle: textStyle,
           hintText: 'Email',
           labelText: 'Email'),
       onChanged: (value) {
@@ -136,15 +185,17 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
     );
   }
 
-  Widget _createDate(BuildContext context) {
+  /* Widget _createDate(BuildContext context) {
     return TextField(
       style: style,
       enableInteractiveSelection: false,
       controller: _inputFieldDateController,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintText: 'Fecha de Nacimiento',
-          labelText: 'Fecha de nacimiento'),
+          hintStyle: textStyle,
+          labelStyle: textStyle,
+          hintText: 'Date of birth',
+          labelText: 'Date of birth'),
       onTap: () {
         FocusScope.of(context).requestFocus(new FocusNode());
         _selectDate(context);
@@ -164,7 +215,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
         _inputFieldDateController.text = _date;
       });
     }
-  }
+  } */
 
   Widget _englishLevelDropDown() {
     return Container(
@@ -172,10 +223,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       child: DropdownButton(
           isExpanded: true,
           hint: Text(
-            'Nivel de inglés',
+            'English level',
             style: style,
           ),
-          icon: Icon(Icons.keyboard_arrow_down),
+          icon: Icon(Icons.arrow_drop_down),
           value: _selectedOption,
           items: getDropDownOptions(_englishLevel),
           onChanged: (opt) {
@@ -202,9 +253,11 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       style: style,
       keyboardType: TextInputType.url,
       decoration: InputDecoration(
+          hintStyle: textStyle,
+          labelStyle: textStyle,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintText: "URL de LinkedIn",
-          labelText: 'URL de LinkedIn'),
+          hintText: "LinkedIn URL",
+          labelText: 'LinkedIn URL'),
       onChanged: (value) {
         setState(() {
           _linkedIn = value;
@@ -219,10 +272,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       child: DropdownButton(
           isExpanded: true,
           hint: Text(
-            'País de residencia',
+            'Country of residence',
             style: style,
           ),
-          icon: Icon(Icons.keyboard_arrow_down),
+          icon: Icon(Icons.arrow_drop_down),
           value: _countryOpt,
           items: getDropDownOptions(_residenceCountry),
           onChanged: (opt) {
@@ -238,8 +291,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       style: style,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-        hintText: 'Compañía',
-        labelText: 'Compañía',
+        hintStyle: textStyle,
+        labelStyle: textStyle,
+        hintText: 'Actual job',
+        labelText: 'Actual job',
       ),
       onChanged: (value) {
         setState(() {
@@ -255,8 +310,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       keyboardType: TextInputType.phone,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintText: 'Número telefónico',
-          labelText: 'Teléfono'),
+          hintStyle: textStyle,
+          labelStyle: textStyle,
+          hintText: 'Phone Number',
+          labelText: 'Phone number'),
       onChanged: (value) {
         setState(() {
           _phoneNumber = value;
@@ -271,8 +328,10 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       maxLines: 3,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintText: "Set de Skills del candidato",
-          labelText: 'Skills'),
+          hintStyle: textStyle,
+          labelStyle: textStyle,
+          hintText: "Skills and comments",
+          labelText: 'Skills and comments'),
       onChanged: (value) {
         setState(() {
           _skills = value;
@@ -282,33 +341,52 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   }
 
   Widget _jobSeat() {
-    return TextField(
-      style: style,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(
-          hintStyle: textStyle,
-          labelStyle: textStyle,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintText: "Cargo al que Aspira",
-          labelText: 'Cargo'),
-      onChanged: (value) {
-        setState(() {
-          _jobPosition = value;
-        });
-      },
+    return Container(
+      width: double.infinity,
+      child: DropdownButton(
+          isExpanded: true,
+          hint: Text(
+            'Work Area',
+            style: style,
+          ),
+          icon: Icon(Icons.arrow_drop_down),
+          value: _workOpt,
+          items: getDropDownOptions(_workArea),
+          onChanged: (opt) {
+            setState(() {
+              _workOpt = opt;
+            });
+          }),
     );
   }
 
   Widget _submitButton() {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10.0),
+      borderRadius: BorderRadius.circular(25.0),
       child: Container(
         width: 200.0,
         height: 46.0,
         child: RaisedButton(
           textColor: Colors.white,
-          onPressed: () {},
-          color: Color.fromRGBO(0, 45, 116, 0.7),
+          onPressed: () {
+            final interviewed = new Interviewed(
+              rrhhInterviewer: _recruiterOpt,
+              linkedinUrl: _linkedIn,
+              area: _workOpt,
+              company: _actualCompany,
+              firstName: _name,
+              lastName: _lastname,
+              country: _countryOpt,
+              email: _email,
+              phone: _phoneNumber,
+              englishLevel: _selectedOption,
+              skills: _skills,
+            );
+
+            DBProvider.db.newInterviewed(interviewed);
+            Navigator.pushNamed(context, '/');
+          },
+          color: Color.fromRGBO(0, 45, 116, 0.9),
           child: Text(
             'ADD CANDIDATE',
             style: GoogleFonts.poppins(fontSize: 14.0, color: Colors.white),
