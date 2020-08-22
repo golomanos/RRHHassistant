@@ -6,21 +6,17 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(
-        'Nuevo Candidato',
-        textAlign: TextAlign.center,
-      )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, 'candidate');
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Color.fromRGBO(0, 45, 116, 1),
+      ),
       body: Container(
         child: Column(
           children: <Widget>[
             Text('Pagina Principal'),
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.pushNamed(context, 'candidate');
-              },
-              child: Icon(Icons.add),
-            )
           ],
         ),
       ),
