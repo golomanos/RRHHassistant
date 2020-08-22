@@ -7,8 +7,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Teravision Recruitment Assistant',
-        theme: ThemeData(fontFamily: 'Poppins'),
+        title: 'Teravision - Asistente de reclutamiento',
+        theme: ThemeData(
+          fontFamily: 'Poppins',
+          primaryColor: Color.fromRGBO(0, 45, 116, 1)
+        ),
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: getApplicationRoutes());

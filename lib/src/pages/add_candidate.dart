@@ -24,16 +24,15 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   String _jobPosition = '';
   String _workOpt = null;
 
-  final style = GoogleFonts.poppins(
-      fontSize: 14.0, color: Color.fromARGB(100, 117, 117, 117));
+  final _style = GoogleFonts.poppins(
+      fontSize: 14.0,
+      color: Color.fromRGBO(117, 117, 117, 1),
+      fontWeight: FontWeight.w500);
 
   final header = GoogleFonts.poppins(
       fontSize: 20.0,
-      color: Color.fromARGB(100, 117, 117, 117),
+      color: Color.fromRGBO(117, 117, 117, 1),
       fontWeight: FontWeight.w500);
-
-  final textStyle =
-      TextStyle(fontSize: 14.0, color: Color.fromARGB(100, 117, 117, 117));
 
   //TextEditingController _inputFieldDateController = new TextEditingController();
 
@@ -47,7 +46,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   List<String> _workArea = [
     'Developer',
     'QA Analyst',
-    'QA Automation'
+    'QA Automation',
     'UX/UI Design',
     'Human Resources',
     'Project Management'
@@ -57,42 +56,42 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Color.fromRGBO(117, 117, 117, 1)
+        ),
         elevation: 0.0,
-        iconTheme: Theme.of(context)
-            .primaryIconTheme
-            .copyWith(color: Color.fromARGB(100, 117, 117, 117)),
         backgroundColor: Colors.white,
         title: Text(
-          'Add a candidate',
+          'Agrega un candidato',
           style: header,
         ),
       ),
-      body: SafeArea(
+      body: Container(
           child: ListView(
         padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
         children: [
           Column(
             children: [
               _createRecruiter(),
-              SizedBox(height: 5.0),
+              SizedBox(height: 40.0),
               _linkedInUrl(),
-              SizedBox(height: 5.0),
+              SizedBox(height: 20.0),
               _jobSeat(),
-              SizedBox(height: 5.0),
+              SizedBox(height: 20.0),
               _company(),
-              SizedBox(height: 5.0),
+              SizedBox(height: 40.0),
               _createName(),
-              SizedBox(height: 5.0),
+              SizedBox(height: 20.0),
               _createLastName(),
-              SizedBox(height: 5.0),
+              SizedBox(height: 20.0),
               _country(),
-              SizedBox(height: 5.0),
+              SizedBox(height: 40.0),
               _createEmail(),
-              SizedBox(height: 5.0),
+              SizedBox(height: 20.0),
               _createPhone(),
-              SizedBox(height: 5.0),
+              SizedBox(height: 20.0),
               _englishLevelDropDown(),
-              SizedBox(height: 5.0),
+              SizedBox(height: 40.0),
               _createSkills(),
               SizedBox(height: 20.0),
               _submitButton()
@@ -109,8 +108,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       child: DropdownButton(
           isExpanded: true,
           hint: Text(
-            'Assigned Recruiter',
-            style: style,
+            'Reclutador asignado',
+            style: _style,
           ),
           icon: Icon(Icons.arrow_drop_down),
           value: _recruiterOpt,
@@ -125,16 +124,22 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
 
   Widget _createName() {
     return TextField(
-      style: style,
+      style: _style,
       autofocus: false,
       keyboardType: TextInputType.name,
+      cursorColor: Color.fromRGBO(0, 45, 116, 1),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-          hintStyle: textStyle,
-          labelStyle: textStyle,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintText: "Name",
-          labelText: 'Name'),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          hintText: "Nombre",
+          labelText: 'Nombre'),
       onChanged: (value) {
         setState(() {
           _name = value;
@@ -145,16 +150,22 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
 
   Widget _createLastName() {
     return TextField(
-      style: style,
+      style: _style,
       autofocus: false,
+      cursorColor: Color.fromRGBO(0, 45, 116, 1),
       textCapitalization: TextCapitalization.sentences,
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintStyle: textStyle,
-          labelStyle: textStyle,
-          hintText: "Last Name",
-          labelText: 'Last Name'),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          hintText: "Apellido",
+          labelText: 'Apellido'),
       onChanged: (value) {
         setState(() {
           _lastname = value;
@@ -165,14 +176,20 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
 
   Widget _createEmail() {
     return TextField(
-      style: style,
+      style: _style,
+      cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintStyle: textStyle,
-          labelStyle: textStyle,
-          hintText: 'Email',
-          labelText: 'Email'),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          hintText: 'Correo electrónico',
+          labelText: 'Correo electrónico'),
       onChanged: (value) {
         setState(() {
           _email = value;
@@ -187,8 +204,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       child: DropdownButton(
           isExpanded: true,
           hint: Text(
-            'English level',
-            style: style,
+            'Nivel de Inglés',
+            style: _style,
           ),
           icon: Icon(Icons.arrow_drop_down),
           value: _selectedOption,
@@ -214,14 +231,20 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
 
   Widget _linkedInUrl() {
     return TextField(
-      style: style,
+      style: _style,
+      cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.url,
       decoration: InputDecoration(
-          hintStyle: textStyle,
-          labelStyle: textStyle,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintText: "LinkedIn URL",
-          labelText: 'LinkedIn URL'),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          hintText: "URL de Linkedin",
+          labelText: 'URL de Linkedin'),
       onChanged: (value) {
         setState(() {
           _linkedIn = value;
@@ -236,8 +259,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       child: DropdownButton(
           isExpanded: true,
           hint: Text(
-            'Country of residence',
-            style: style,
+            'País de residencia',
+            style: _style,
           ),
           icon: Icon(Icons.arrow_drop_down),
           value: _countryOpt,
@@ -252,13 +275,20 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
 
   Widget _company() {
     return TextField(
-      style: style,
+      style: _style,
+      cursorColor: Color.fromRGBO(0, 45, 116, 1),
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(
+              color: Color.fromRGBO(0, 45, 116, 1),
+            )),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-        hintStyle: textStyle,
-        labelStyle: textStyle,
-        hintText: 'Actual job',
-        labelText: 'Actual job',
+        hintText: 'Trabajo actual',
+        labelText: 'Trabajo actual',
       ),
       onChanged: (value) {
         setState(() {
@@ -270,14 +300,20 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
 
   Widget _createPhone() {
     return TextField(
-      style: style,
+      style: _style,
+      cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.phone,
       decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintStyle: textStyle,
-          labelStyle: textStyle,
-          hintText: 'Phone Number',
-          labelText: 'Phone number'),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          hintText: 'Número de Teléfono',
+          labelText: 'Número de Teléfono'),
       onChanged: (value) {
         setState(() {
           _phoneNumber = value;
@@ -288,14 +324,20 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
 
   Widget _createSkills() {
     return TextField(
-      style: style,
+      style: _style,
       maxLines: 3,
+      cursorColor: Color.fromRGBO(0, 45, 116, 1),
       decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintStyle: textStyle,
-          labelStyle: textStyle,
-          hintText: "Skills and comments",
-          labelText: 'Skills and comments'),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          hintText: "Habilidades y comentarios",
+          labelText: 'Habilidades y comentarios'),
       onChanged: (value) {
         setState(() {
           _skills = value;
@@ -310,8 +352,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       child: DropdownButton(
           isExpanded: true,
           hint: Text(
-            'Work Area',
-            style: style,
+            'Área de trabajo',
+            style: _style,
           ),
           icon: Icon(Icons.arrow_drop_down),
           value: _workOpt,
@@ -334,26 +376,25 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
           textColor: Colors.white,
           onPressed: () {
             final interviewed = new Interviewed(
-              rrhhInterviewer: _recruiterOpt,
-              linkedinUrl: _linkedIn,
-              area: _workOpt,
-              company: _actualCompany,
-              firstName: _name,
-              lastName: _lastname,
-              country: _countryOpt,
-              email: _email,
-              phone: _phoneNumber,
-              englishLevel: _selectedOption,
-              skills: _skills,
-              status: 'RRHH Interview'
-            );
+                rrhhInterviewer: _recruiterOpt,
+                linkedinUrl: _linkedIn,
+                area: _workOpt,
+                company: _actualCompany,
+                firstName: _name,
+                lastName: _lastname,
+                country: _countryOpt,
+                email: _email,
+                phone: _phoneNumber,
+                englishLevel: _selectedOption,
+                skills: _skills,
+                status: 'RRHH Interview');
 
             DBProvider.db.newInterviewed(interviewed);
             Navigator.pushNamed(context, '/');
           },
           color: Color.fromRGBO(0, 45, 116, 0.9),
           child: Text(
-            'ADD CANDIDATE',
+            'AGREGAR CANDIDATO',
             style: GoogleFonts.poppins(fontSize: 14.0, color: Colors.white),
           ),
         ),

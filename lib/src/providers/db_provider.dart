@@ -56,7 +56,7 @@ class DBProvider {
 
   applyFilters(String status) async {
     final db = await database;
-    var res = await db.rawQuery("SELECT * FROM interviewed WHERE status LIKE '%$status%'");
+    var res = await db.rawQuery("SELECT * FROM interviewed WHERE status LIKE '%$status%' ORDER BY id DESC");
     List<Interviewed> list =
         res.isNotEmpty ? res.map((c) => Interviewed.fromMap(c)).toList() : [];
     return list;
@@ -70,7 +70,7 @@ class DBProvider {
 
   Future<List<Interviewed>> search( String term )  async {
     final db = await database;
-    var res = await db.rawQuery("SELECT * FROM interviewed WHERE first_name LIKE '%$term%' OR last_name LIKE '%$term%' OR email LIKE '%$term%'");
+    var res = await db.rawQuery("SELECT * FROM interviewed WHERE first_name LIKE '%$term%' OR last_name LIKE '%$term%' OR email LIKE '%$term%' ORDER BY id DESC");
     List<Interviewed> list =
         res.isNotEmpty ? res.map((c) => Interviewed.fromMap(c)).toList() : [];
     return list;

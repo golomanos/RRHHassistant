@@ -22,11 +22,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0.0,
+          centerTitle: false,
           backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
           title: Image(
             alignment: AlignmentDirectional.centerStart,
             image: AssetImage('assets/images/teravisionlogo.png'),
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Welcome to your',
+                    'Bienvenido a tu',
                     style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.w500,
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                     height: 5.0,
                   ),
                   Text(
-                    'RECRUITMENT ASSISTANT',
+                    'ASISTENTE DE RECLUTAMIENTO',
                     style: TextStyle(
                         fontSize: 18.0,
                         height: 1.6,
@@ -226,7 +227,7 @@ class _HomePageState extends State<HomePage> {
               ? Color.fromRGBO(0, 101, 130, 1)
               : Color.fromRGBO(226, 226, 226, 1),
           child: Text(
-            'RRHH Interview',
+            'Entrevista de RRHH',
             style: TextStyle(
                 color: active == 1
                     ? Colors.white
@@ -250,7 +251,7 @@ class _HomePageState extends State<HomePage> {
               ? Color.fromRGBO(87, 146, 123, 1)
               : Color.fromRGBO(226, 226, 226, 1),
           child: Text(
-            'Technical Interview',
+            'Entrevista Técnica',
             style: TextStyle(
                 color: active == 2
                     ? Colors.white
@@ -274,7 +275,7 @@ class _HomePageState extends State<HomePage> {
               ? Color.fromRGBO(103, 166, 94, 1)
               : Color.fromRGBO(226, 226, 226, 1),
           child: Text(
-            'RRHH review',
+            'Revisión de RRHH',
             style: TextStyle(
                 color: active == 3
                     ? Colors.white
@@ -298,7 +299,7 @@ class _HomePageState extends State<HomePage> {
               ? Color.fromRGBO(119, 185, 66, 1)
               : Color.fromRGBO(226, 226, 226, 1),
           child: Text(
-            'Hired',
+            'Contratado',
             style: TextStyle(
                 color: active == 4
                     ? Colors.white
@@ -322,7 +323,7 @@ class _HomePageState extends State<HomePage> {
               ? Color.fromRGBO(117, 117, 117, 1)
               : Color.fromRGBO(226, 226, 226, 1),
           child: Text(
-            'Rejected',
+            'Rechazado',
             style: TextStyle(
                 color: active == 5
                     ? Colors.white

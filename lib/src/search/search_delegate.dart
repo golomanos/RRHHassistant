@@ -5,6 +5,8 @@ import 'package:terathon2020/src/models/interviewed_model.dart';
 class DataSearch extends SearchDelegate {
   String selection = '';
 
+  DataSearch() : super( searchFieldLabel: 'Buscar...', searchFieldStyle: TextStyle(color: Color.fromRGBO(149, 149, 149, 1), fontSize: 16.0, fontWeight: FontWeight.w500));
+
   @override
   List<Widget> buildActions(Object context) {
     // Acciones en el searchbar
@@ -62,7 +64,7 @@ class DataSearch extends SearchDelegate {
   Widget _showError() {
     return Center(
       child: Text(
-        'No results',
+        'Sin resultados',
         style: TextStyle(
             color: Color.fromRGBO(185, 185, 185, 1),
             fontSize: 12.0,
