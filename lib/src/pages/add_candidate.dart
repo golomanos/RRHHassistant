@@ -15,7 +15,6 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   String _lastname = '';
   String _email = '';
   String _recruiterOpt = null;
-  //String _date = '';
   String _selectedOption = null;
   String _countryOpt = null;
   String _linkedIn = '';
@@ -52,7 +51,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
     'Developer',
     'QA Analyst',
     'QA Automation'
-        'UX/UI Design',
+    'UX/UI Design',
     'Human Resources',
     'Project Management'
   ];
@@ -87,8 +86,6 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
               SizedBox(height: 5.0),
               _createLastName(),
               SizedBox(height: 5.0),
-              //_createDate(context),
-              //SizedBox(height: 5.0),
               _country(),
               SizedBox(height: 5.0),
               _createEmail(),
@@ -184,38 +181,6 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       },
     );
   }
-
-  /* Widget _createDate(BuildContext context) {
-    return TextField(
-      style: style,
-      enableInteractiveSelection: false,
-      controller: _inputFieldDateController,
-      decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintStyle: textStyle,
-          labelStyle: textStyle,
-          hintText: 'Date of birth',
-          labelText: 'Date of birth'),
-      onTap: () {
-        FocusScope.of(context).requestFocus(new FocusNode());
-        _selectDate(context);
-      },
-    );
-  }
-
-  void _selectDate(BuildContext context) async {
-    DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: new DateTime(1980),
-        firstDate: new DateTime(1970),
-        lastDate: new DateTime(2024));
-    if (picked != null) {
-      setState(() {
-        _date = picked.toString();
-        _inputFieldDateController.text = _date;
-      });
-    }
-  } */
 
   Widget _englishLevelDropDown() {
     return Container(
@@ -381,6 +346,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
               phone: _phoneNumber,
               englishLevel: _selectedOption,
               skills: _skills,
+              status: 'RRHH Interview'
             );
 
             DBProvider.db.newInterviewed(interviewed);
