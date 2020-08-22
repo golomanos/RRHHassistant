@@ -26,6 +26,9 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Agregar candidato'),
+      ),
       body: SafeArea(
           child: ListView(
         padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
