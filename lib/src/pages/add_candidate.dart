@@ -13,10 +13,16 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
   String _email = '';
   String _date = '';
   String _selectedOption = 'Básico';
+  String _countryOption = 'Venezuela';
   String _linkedIn = '';
+  String _actualCompany = '';
+  String _phoneNumber = '';
+  String _skills = '';
+
   TextEditingController _inputFieldDateController = new TextEditingController();
 
   List<String> _englishLevel = ['Básico', 'Intermedio', 'Avanzado', 'Nativo'];
+  List<String> _residenceCountry = ['Venezuela', 'Colombia', 'México', 'EEUU'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,16 +33,24 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
           Column(
             children: [
               _createName(),
-              SizedBox(height: 10.0),
+              SizedBox(height: 5.0),
               _createLastName(),
-              SizedBox(height: 10.0),
+              SizedBox(height: 5.0),
               _createEmail(),
-              SizedBox(height: 10.0),
+              SizedBox(height: 5.0),
               _createDate(context),
-              SizedBox(height: 10.0),
+              SizedBox(height: 5.0),
               _englishLevelDropDown(),
-              SizedBox(height: 10.0),
+              SizedBox(height: 5.0),
               _linkedInUrl(),
+              SizedBox(height: 5.0),
+              _country(),
+              SizedBox(height: 5.0),
+              _company(),
+              SizedBox(height: 5.0),
+              _createPhone(),
+              SizedBox(height: 5.0),
+              _createSkills(),
             ],
           ),
         ],
@@ -46,7 +60,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
 
   Widget _createName() {
     return TextField(
-      autofocus: true,
+      autofocus: false,
+      keyboardType: TextInputType.name,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -63,8 +78,9 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
 
   Widget _createLastName() {
     return TextField(
-      autofocus: true,
+      autofocus: false,
       textCapitalization: TextCapitalization.sentences,
+      keyboardType: TextInputType.name,
       decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
           hintText: "Apellido",
@@ -133,7 +149,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
         DropdownButton(
             icon: Icon(Icons.keyboard_arrow_down),
             value: _selectedOption,
-            items: getDropDownOptions(),
+            items: getDropDownOptions(_englishLevel),
             onChanged: (opt) {
               setState(() {
                 _selectedOption = opt;
@@ -143,12 +159,12 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
     );
   }
 
-  List<DropdownMenuItem<String>> getDropDownOptions() {
+  List<DropdownMenuItem<String>> getDropDownOptions(List<String> array) {
     List<DropdownMenuItem<String>> itemlist = new List();
-    _englishLevel.forEach((level) {
+    array.forEach((item) {
       itemlist.add(DropdownMenuItem(
-        child: Text(level),
-        value: level,
+        child: Text(item),
+        value: item,
       ));
     });
     return itemlist;
@@ -156,6 +172,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
 
   Widget _linkedInUrl() {
     return TextField(
+      keyboardType: TextInputType.url,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
         hintText: "URL de LinkedIn",
@@ -165,6 +182,73 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       onChanged: (value) {
         setState(() {
           _linkedIn = value;
+        });
+      },
+    );
+  }
+
+  Widget _country() {
+    return Row(
+      children: <Widget>[
+        Text('País de residencia:'),
+        SizedBox(width: 30),
+        DropdownButton(
+            icon: Icon(Icons.keyboard_arrow_down),
+            value: _countryOption,
+            items: getDropDownOptions(_residenceCountry),
+            onChanged: (opt) {
+              setState(() {
+                _countryOption = opt;
+              });
+            }),
+      ],
+    );
+  }
+
+  _company() {
+    return TextField(
+      decoration: InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+        hintText: 'Compañía',
+        labelText: 'Compañía',
+      ),
+      onChanged: (value) {
+        setState(() {
+          _actualCompany = value;
+        });
+      },
+    );
+  }
+
+  _createPhone() {
+    return TextField(
+      keyboardType: TextInputType.phone,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+        hintText: 'Número telefónico',
+        labelText: 'Teléfono',
+        suffixIcon: Icon(Icons.phone),
+      ),
+      onChanged: (value) {
+        setState(() {
+          _phoneNumber = value;
+        });
+      },
+    );
+  }
+
+  _createSkills() {
+    return TextField(
+      maxLines: 5,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+        hintText: "Set de Skills del candidato",
+        labelText: 'Skills',
+        icon: Icon(Icons.view_list),
+      ),
+      onChanged: (value) {
+        setState(() {
+          _skills = value;
         });
       },
     );
