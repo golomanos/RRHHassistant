@@ -41,6 +41,7 @@ class _TechnicalInterviewPageState extends State<TechnicalInterviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           iconTheme: Theme.of(context)
               .primaryIconTheme
