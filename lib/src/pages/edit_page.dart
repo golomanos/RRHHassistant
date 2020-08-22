@@ -29,6 +29,14 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       color: Color.fromRGBO(117, 117, 117, 1),
       fontWeight: FontWeight.w500);
 
+  final hintTextColorOnly =
+      GoogleFonts.poppins(color: Color.fromRGBO(173, 173, 173, 1));
+
+  final _hintText = GoogleFonts.poppins(
+      fontSize: 14.0,
+      color: Color.fromRGBO(173, 173, 173, 1),
+      fontWeight: FontWeight.w500);
+
   final header = GoogleFonts.poppins(
       fontSize: 20.0,
       color: Color.fromRGBO(117, 117, 117, 1),
@@ -56,9 +64,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Color.fromRGBO(117, 117, 117, 1)
-        ),
+        iconTheme: IconThemeData(color: Color.fromRGBO(117, 117, 117, 1)),
         elevation: 0.0,
         backgroundColor: Colors.white,
         title: Text(
@@ -105,20 +111,26 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
   _createRecruiter() {
     return Container(
       width: double.infinity,
-      child: DropdownButton(
-          isExpanded: true,
-          hint: Text(
-            'Reclutador asignado',
-            style: _style,
-          ),
-          icon: Icon(Icons.arrow_drop_down),
-          value: _recruiterOpt,
-          items: getDropDownOptions(_assignedRecruiter),
-          onChanged: (opt) {
-            setState(() {
-              _recruiterOpt = opt;
-            });
-          }),
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.white,
+          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+            isExpanded: true,
+            hint: Text(
+              'Reclutador asignado',
+              style: _hintText,
+            ),
+            value: _recruiterOpt,
+            items: getDropDownOptions(_assignedRecruiter),
+            onChanged: (opt) {
+              setState(() {
+                _recruiterOpt = opt;
+              });
+            }),
+      ),
     );
   }
 
@@ -130,6 +142,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
@@ -156,6 +169,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       textCapitalization: TextCapitalization.sentences,
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
@@ -180,6 +194,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
@@ -201,20 +216,27 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
   Widget _englishLevelDropDown() {
     return Container(
       width: double.infinity,
-      child: DropdownButton(
-          isExpanded: true,
-          hint: Text(
-            'Nivel de Inglés',
-            style: _style,
-          ),
-          icon: Icon(Icons.arrow_drop_down),
-          value: _selectedOption,
-          items: getDropDownOptions(_englishLevel),
-          onChanged: (opt) {
-            setState(() {
-              _selectedOption = opt;
-            });
-          }),
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.white,
+          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+            isExpanded: true,
+            hint: Text(
+              'Nivel de Inglés',
+              style: _hintText,
+            ),
+            icon: Icon(Icons.arrow_drop_down),
+            value: _selectedOption,
+            items: getDropDownOptions(_englishLevel),
+            onChanged: (opt) {
+              setState(() {
+                _selectedOption = opt;
+              });
+            }),
+      ),
     );
   }
 
@@ -235,6 +257,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.url,
       decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
@@ -256,20 +279,27 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
   Widget _country() {
     return Container(
       width: double.infinity,
-      child: DropdownButton(
-          isExpanded: true,
-          hint: Text(
-            'País de residencia',
-            style: _style,
-          ),
-          icon: Icon(Icons.arrow_drop_down),
-          value: _countryOpt,
-          items: getDropDownOptions(_residenceCountry),
-          onChanged: (opt) {
-            setState(() {
-              _countryOpt = opt;
-            });
-          }),
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.white,
+          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+            isExpanded: true,
+            hint: Text(
+              'País de residencia',
+              style: _hintText,
+            ),
+            icon: Icon(Icons.arrow_drop_down),
+            value: _countryOpt,
+            items: getDropDownOptions(_residenceCountry),
+            onChanged: (opt) {
+              setState(() {
+                _countryOpt = opt;
+              });
+            }),
+      ),
     );
   }
 
@@ -278,6 +308,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       style: _style,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       decoration: InputDecoration(
+        hintStyle: hintTextColorOnly,
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
@@ -304,6 +335,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.phone,
       decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
@@ -328,6 +360,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       maxLines: 3,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(
@@ -349,20 +382,27 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
   Widget _jobSeat() {
     return Container(
       width: double.infinity,
-      child: DropdownButton(
-          isExpanded: true,
-          hint: Text(
-            'Área de trabajo',
-            style: _style,
-          ),
-          icon: Icon(Icons.arrow_drop_down),
-          value: _workOpt,
-          items: getDropDownOptions(_workArea),
-          onChanged: (opt) {
-            setState(() {
-              _workOpt = opt;
-            });
-          }),
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.white,
+          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+            isExpanded: true,
+            hint: Text(
+              'Área de trabajo',
+              style: _hintText,
+            ),
+            icon: Icon(Icons.arrow_drop_down),
+            value: _workOpt,
+            items: getDropDownOptions(_workArea),
+            onChanged: (opt) {
+              setState(() {
+                _workOpt = opt;
+              });
+            }),
+      ),
     );
   }
 
@@ -402,3 +442,5 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 }
+
+
