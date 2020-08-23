@@ -188,7 +188,7 @@ class RRHHReview extends StatelessWidget {
                   ),
                   RaisedButton(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+                        EdgeInsets.symmetric(horizontal: 60.0, vertical: 15.0),
                     onPressed: () {
                       sendToDatabase(element.id).then((response) {
                         Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false);
