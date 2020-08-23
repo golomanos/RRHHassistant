@@ -23,7 +23,7 @@ class DBProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, "test2.db");
-    return await openDatabase(path, version: 1, onOpen: (db) {},
+    return await openDatabase(path, version: 2, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute("CREATE TABLE interviewed ("
           "id INTEGER PRIMARY KEY,"
@@ -76,9 +76,9 @@ class DBProvider {
     return list;
   }
 
-  addInterviewerFeedback( String feedback, int id ) async {
+  sendToTechnicalInterview( int id ) async {
     final db = await database;
-    var res = await db.rawUpdate("UPDATE interviewed SET rrhh_feedback = ?, status = 'Ready for Technical Interview' WHERE id = ?", [feedback, id]);
+    var res = await db.rawUpdate("UPDATE interviewed SET status = 'Technical Interview' WHERE id = ?", [id]);
     return res;
   }
 
@@ -97,6 +97,12 @@ class DBProvider {
   hired( int id ) async {
     final db = await database;
     var res = await db.rawUpdate("UPDATE interviewed SET status = 'Hired' WHERE id = ?", [id]);
+    return res;
+  }
+
+  updateInterviewed(int id, Interviewed element) async {
+    final db = await database;
+    var res = await db.update('interviewed', element.toMap(), where: "id = ?", whereArgs: [element.id]);
     return res;
   }
 

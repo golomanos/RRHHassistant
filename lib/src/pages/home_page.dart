@@ -150,8 +150,12 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       onTap: () {
-        print('element clicked');
-      },
+        if(element.status == 'RRHH Interview') {
+          Navigator.pushNamed(context, 'rrhhinterview', arguments: element);
+        } else {
+          Navigator.pushNamed(context, 'techfeedback', arguments: element);
+        }
+      } 
     );
   }
 

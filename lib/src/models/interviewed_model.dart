@@ -57,6 +57,7 @@ class Interviewed {
         phone: json["phone"],
         area: json["area"],
         status: json["status"],
+        skills: json["skills"],
         rrhhInterviewer: json["rrhh_interviewer"],
         rrhhFeedback: json["rrhh_feedback"],
         rejectReason: json["reject_reason"],

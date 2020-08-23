@@ -52,7 +52,7 @@ class DataSearch extends SearchDelegate {
 
           return ListView(
               children: elements.map((element) {
-            return _createCard(element);
+            return _createCard(element, context);
           }).toList());
         } else {
           return _showError();
@@ -73,7 +73,7 @@ class DataSearch extends SearchDelegate {
     );
   }
 
-  Widget _createCard(Interviewed element) {
+  Widget _createCard(Interviewed element, BuildContext context) {
     double value = _getValue(element);
     return GestureDetector(
       child: Card(
@@ -130,7 +130,11 @@ class DataSearch extends SearchDelegate {
         ),
       ),
       onTap: () {
-        print('element clicked');
+        if(element.status == 'RRHH Interview') {
+          Navigator.pushNamed(context, 'rrhhinterview', arguments: element);
+        } else {
+          Navigator.pushNamed(context, 'techfeedback', arguments: element);
+        }
       },
     );
   }

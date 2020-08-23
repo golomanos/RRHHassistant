@@ -74,7 +74,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       ),
       body: Container(
           child: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 30.0),
         children: [
           Column(
             children: [

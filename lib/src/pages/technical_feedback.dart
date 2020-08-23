@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:terathon2020/src/providers/db_provider.dart';
+import 'package:terathon2020/src/models/interviewed_model.dart';
 
 class TechnicalFeedbackPage extends StatefulWidget {
   //TechnicalFeedbackPage({Key key}) : super(key: key);
@@ -12,27 +12,32 @@ class TechnicalFeedbackPage extends StatefulWidget {
 class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
   final header = GoogleFonts.poppins(
       fontSize: 20.0,
-      color: Color.fromARGB(100, 117, 117, 117),
+      color: Color.fromRGBO(117, 117, 117, 1),
       fontWeight: FontWeight.w500);
 
-  final style = GoogleFonts.poppins(
-      fontSize: 14.0, color: Color.fromARGB(100, 117, 117, 117));
+  final _style = GoogleFonts.poppins(
+      fontSize: 14.0,
+      color: Color.fromRGBO(117, 117, 117, 1),
+      fontWeight: FontWeight.w500);
 
-  int _candidateId;
+  final hintTextColorOnly =
+      GoogleFonts.poppins(color: Color.fromRGBO(173, 173, 173, 1));
+
+  final _hintText = GoogleFonts.poppins(
+      fontSize: 14.0,
+      color: Color.fromRGBO(173, 173, 173, 1),
+      fontWeight: FontWeight.w500);
 
   List<String> _recruiters = [
     'Omar Fariñez',
     'Joaquin Molina',
-    'Barbara Muñoz'
+    'José Calderon',
+    'Luis Arismendi',
+    'Francisco López',
+    'Maria Cordobes'
   ];
   String _assignedRecruiters;
 
-  List<String> _candidates = [
-    'Omar Fariñez',
-    'Joaquin Molina',
-    'Barbara Muñoz'
-  ];
-  String _interviewedCandidate;
   String _techFeedback = '';
 
   final textStyle =
@@ -40,66 +45,56 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Interviewed element = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          iconTheme: Theme.of(context)
-              .primaryIconTheme
-              .copyWith(color: Color.fromARGB(100, 117, 117, 117)),
+          iconTheme: IconThemeData(color: Color.fromRGBO(117, 117, 117, 1)),
+          elevation: 0.0,
           backgroundColor: Colors.white,
           title: Text(
-            'Technical feedback',
+            'Entrevista técnica',
             style: header,
           ),
+          toolbarHeight: 100.0,
         ),
         body: SafeArea(
             child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 30.0),
           children: [
-            _candidateDropdown(),
             SizedBox(
-              height: 10.0,
+              height: 30.0,
             ),
             _assignedRecruiter(),
             SizedBox(
-              height: 10.0,
+              height: 20.0,
             ),
             _feedbackField(),
             SizedBox(
-              height: 70.0,
+              height: 75.0,
             ),
-            _submitButton()
+            Container(
+                alignment: Alignment.center,
+                child: _submitButton(element, context))
           ],
         )));
   }
 
-  _candidateDropdown() {
-    return Container(
-      width: double.infinity,
-      child: DropdownButton(
-          isExpanded: true,
-          hint: Text(
-            'Interviwed Candidate',
-            style: style,
-          ),
-          icon: Icon(Icons.arrow_drop_down),
-          items: getDropDownOptions(_candidates),
-          onChanged: (opt) {
-            setState(() {
-              _interviewedCandidate = opt;
-            });
-          }),
-    );
-  }
-
   _assignedRecruiter() {
     return Container(
-        width: double.infinity,
+      width: double.infinity,
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.white,
+          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
+      child: DropdownButtonHideUnderline(
         child: DropdownButton(
             isExpanded: true,
             hint: Text(
-              'Assigned Recruiter',
-              style: style,
+              'Entrevistador asignado',
+              style: _hintText,
             ),
             icon: Icon(Icons.arrow_drop_down),
             value: _assignedRecruiters,
@@ -108,7 +103,9 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
               setState(() {
                 _assignedRecruiters = opt;
               });
-            }));
+            }),
+      ),
+    );
   }
 
   List<DropdownMenuItem<String>> getDropDownOptions(List<String> array) {
@@ -124,14 +121,24 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
 
   _feedbackField() {
     return TextField(
-      style: style,
-      maxLines: 15,
+      textAlign: TextAlign.left,
+      textAlignVertical: TextAlignVertical.top,
+      style: _style,
+      maxLines: 10,
+      cursorColor: Color.fromRGBO(0, 45, 116, 1),
       decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintStyle: textStyle,
-          labelStyle: textStyle,
-          hintText: "Skills and comments",
-          labelText: 'Skills and comments'),
+          alignLabelWithHint: true,
+          hintStyle: hintTextColorOnly,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          hintText: "Habilidades técnicas y comentarios",
+          labelText: 'Habilidades técnicas y comentarios'),
       onChanged: (value) {
         setState(() {
           _techFeedback = value;
@@ -140,21 +147,20 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
     );
   }
 
-  _submitButton() {
+  _submitButton(Interviewed element, BuildContext context) {
     return ClipRRect(
-        borderRadius: BorderRadius.circular(25.0),
+        borderRadius: BorderRadius.all(Radius.circular(23.0)),
         child: Container(
-            width: 200.0,
-            height: 46.0,
             child: RaisedButton(
-              textColor: Colors.white,
-              onPressed: () => _sendFeedbackAlert(context),
-              color: Color.fromRGBO(0, 45, 116, 0.9),
-              child: Text(
-                'SEND TECHNICAL FEEDBACK',
-                style: GoogleFonts.poppins(fontSize: 14.0, color: Colors.white),
-              ),
-            )));
+          textColor: Colors.white,
+          onPressed: () => _sendFeedbackAlert(context),
+          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
+          color: Color.fromRGBO(0, 45, 116, 0.9),
+          child: Text(
+            'ENVIAR A ENTREVISTA TÉCNICA',
+            style: GoogleFonts.poppins(fontSize: 14.0, color: Colors.white),
+          ),
+        )));
   }
 
   void _sendFeedbackAlert(BuildContext context) {
@@ -170,7 +176,7 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
               children: [
                 Text(
                   'Did you already finished this interview?',
-                  style: style,
+                  style: _style,
                   textAlign: TextAlign.center,
                 )
               ],
@@ -198,7 +204,7 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
                   shape: StadiumBorder(),
                   child: Text(
                     'NO, CANCEL',
-                    style: style,
+                    style: _style,
                   ),
                 ),
               )
