@@ -144,6 +144,8 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     return TextFormField(
       initialValue: element.firstName,
       style: _style,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       autofocus: false,
       keyboardType: TextInputType.name,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
@@ -172,6 +174,8 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       initialValue: element.lastName,
       style: _style,
       autofocus: false,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       textCapitalization: TextCapitalization.sentences,
       keyboardType: TextInputType.name,
@@ -200,6 +204,8 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       initialValue: element.email,
       style: _style,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           hintStyle: hintTextColorOnly,
@@ -265,6 +271,8 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     return TextFormField(
       initialValue: element.linkedinUrl,
       style: _style,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.url,
       decoration: InputDecoration(
@@ -318,6 +326,8 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     return TextFormField(
       initialValue: element.company,
       style: _style,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       decoration: InputDecoration(
         hintStyle: hintTextColorOnly,
@@ -345,6 +355,8 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     return TextFormField(
       initialValue: element.phone,
       style: _style,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.phone,
       decoration: InputDecoration(
@@ -372,6 +384,8 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       initialValue: element.skills,
       style: _style,
       maxLines: 3,
+      textInputAction: TextInputAction.done,
+      onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       decoration: InputDecoration(
           hintStyle: hintTextColorOnly,

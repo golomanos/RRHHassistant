@@ -168,13 +168,13 @@ class DetailPage extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Divider(),
+          Divider(height: 3.0,),
           SizedBox(height: 15.0),
           _createSection('Entrevistador técnico', element.technicalInterviewer != null ? element.technicalInterviewer : ""),
           SizedBox(height: 15.0),
           _createSection('Feedback técnico', element.technicalFeedback != null ? element.technicalFeedback : ""),
           SizedBox(height: 15.0),
-          Divider(),
+          Divider(height: 3.0,),
         ],
       );
     } else {
