@@ -10,6 +10,11 @@ class RRHHInterview extends StatelessWidget {
       color: Color.fromRGBO(117, 117, 117, 1),
       fontWeight: FontWeight.w500);
 
+  final _style = GoogleFonts.poppins(
+      fontSize: 14.0,
+      color: Color.fromRGBO(117, 117, 117, 1),
+      fontWeight: FontWeight.w500);
+
   @override
   Widget build(BuildContext context) {
     final Interviewed element = ModalRoute.of(context).settings.arguments;
@@ -46,54 +51,56 @@ class RRHHInterview extends StatelessWidget {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.0),
                   topRight: Radius.circular(20.0))),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('${element.firstName} ${element.lastName}',
-                  style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromRGBO(117, 117, 117, 1))),
-              SizedBox(
-                height: 5.0,
-              ),
-              Text('${element.area}  ·  ${element.country}',
-                  style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromRGBO(117, 117, 117, 1))),
-              SizedBox(height: 30.0),
-              _createURL('URL de Linkedin',
-                  element.linkedinUrl != null ? element.linkedinUrl : ""),
-              SizedBox(height: 15.0),
-              _createSection('Trabajo actual',
-                  element.company != null ? element.company : ""),
-              SizedBox(height: 15.0),
-              _createSection('Correo electrónico',
-                  element.email != null ? element.email : ""),
-              SizedBox(height: 15.0),
-              _createSection('Número de teléfono',
-                  element.phone != null ? element.phone : ""),
-              SizedBox(height: 15.0),
-              _createSection('Nivel de inglés',
-                  element.englishLevel != null ? element.englishLevel : ""),
-              SizedBox(height: 15.0),
-              _createSection('Habilidades y comentarios',
-                  element.skills != null ? element.skills : ""),
-              SizedBox(height: 30.0),
-              _createRecluter(
-                  'Reclutador asignado',
-                  element.rrhhInterviewer != null
-                      ? element.rrhhInterviewer
-                      : ""),
-              SizedBox(
-                height: 75.0,
-              ),
-              Container(
-                  alignment: Alignment.center,
-                  child: _submitButton(element, context))
-            ],
-          ),
+          child: ListView(children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('${element.firstName} ${element.lastName}',
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromRGBO(117, 117, 117, 1))),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Text('${element.area}  ·  ${element.country}',
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromRGBO(117, 117, 117, 1))),
+                SizedBox(height: 30.0),
+                _createURL('URL de Linkedin',
+                    element.linkedinUrl != null ? element.linkedinUrl : ""),
+                SizedBox(height: 15.0),
+                _createSection('Trabajo actual',
+                    element.company != null ? element.company : ""),
+                SizedBox(height: 15.0),
+                _createSection('Correo electrónico',
+                    element.email != null ? element.email : ""),
+                SizedBox(height: 15.0),
+                _createSection('Número de teléfono',
+                    element.phone != null ? element.phone : ""),
+                SizedBox(height: 15.0),
+                _createSection('Nivel de inglés',
+                    element.englishLevel != null ? element.englishLevel : ""),
+                SizedBox(height: 15.0),
+                _createSection('Habilidades y comentarios',
+                    element.skills != null ? element.skills : ""),
+                SizedBox(height: 30.0),
+                _createRecluter(
+                    'Reclutador asignado',
+                    element.rrhhInterviewer != null
+                        ? element.rrhhInterviewer
+                        : ""),
+                SizedBox(
+                  height: 75.0,
+                ),
+                Container(
+                    alignment: Alignment.center,
+                    child: _submitButton(element, context))
+              ],
+            ),
+          ]),
         ));
   }
 
@@ -185,7 +192,7 @@ class RRHHInterview extends StatelessWidget {
           textColor: Colors.white,
           onPressed: () {
             DBProvider.db.sendToTechnicalInterview(element.id).then((response) {
-              Navigator.pushNamed(context, '/');
+              _greetinsAlert(context);
             });
           },
           padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
@@ -195,6 +202,55 @@ class RRHHInterview extends StatelessWidget {
             style: GoogleFonts.poppins(fontSize: 14.0, color: Colors.white),
           ),
         )));
+  }
+
+  void _greetinsAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return SimpleDialog(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image(
+                  image: AssetImage('assets/images/check_1.png'),
+                  height: 40.0,
+                ),
+                SizedBox(height: 15.0),
+                Text(
+                  '¡Gracias por formar parte de nuestro equipo de entrevistadores!',
+                  style: _style,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                RaisedButton(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
+                  onPressed: () => Navigator.pushNamed(context, '/'),
+                  color: Color.fromRGBO(0, 45, 116, 0.9),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(23.0)),
+                  child: Text('OK',
+                      style: GoogleFonts.poppins(
+                          fontSize: 12.0, color: Colors.white)),
+                ),
+                SizedBox(height: 15.0),
+              ],
+            )
+          ],
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),
+        );
+      },
+    )
+        .then((value) => Navigator.pushNamed(context, '/'))
+        .catchError((value) => Navigator.pushNamed(context, '/'));
   }
 
   void _launchURL(String url) async {
