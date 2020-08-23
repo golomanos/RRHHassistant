@@ -60,7 +60,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     'Project Management'
   ];
 
-  Map candidato;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -140,6 +140,90 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
+  Widget _linkedInUrl(Interviewed element) {
+    return TextFormField(
+      initialValue: element.linkedinUrl,
+      style: _style,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      cursorColor: Color.fromRGBO(0, 45, 116, 1),
+      keyboardType: TextInputType.url,
+      decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          hintText: "Linkedin del candidato (URL)",
+          labelText: 'Linkedin del candidato (URL)'),
+      onChanged: (value) {
+        setState(() {
+          _linkedIn = value;
+        });
+      },
+    );
+  }
+
+  Widget _jobSeat(Interviewed element) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.white,
+          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+            isExpanded: true,
+            hint: Text(
+              'Cargo laboral postulado',
+              style: _hintText,
+            ),
+            icon: Icon(Icons.arrow_drop_down),
+            value: _workOpt != null ? _workOpt : element.area,
+            items: getDropDownOptions(_workArea),
+            onChanged: (opt) {
+              setState(() {
+                _workOpt = opt;
+              });
+            }),
+      ),
+    );
+  }
+
+  Widget _company(Interviewed element) {
+    return TextFormField(
+      initialValue: element.company,
+      style: _style,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      cursorColor: Color.fromRGBO(0, 45, 116, 1),
+      decoration: InputDecoration(
+        hintStyle: hintTextColorOnly,
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(
+              color: Color.fromRGBO(0, 45, 116, 1),
+            )),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+        hintText: '¿Dónde trabaja actualmente?',
+        labelText: '¿Dónde trabaja actualmente?',
+      ),
+      onChanged: (value) {
+        setState(() {
+          _actualCompany = value;
+        });
+      },
+    );
+  }
+
   Widget _createName(Interviewed element) {
     return TextFormField(
       initialValue: element.firstName,
@@ -160,8 +244,8 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
-        hintText: "Nombre",
-        labelText: 'Nombre',
+        hintText: "Nombre del candidato",
+        labelText: 'Nombre del candidato',
       ),
       onChanged: (value) {
         _name = value;
@@ -189,13 +273,40 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
-          hintText: "Apellido",
-          labelText: 'Apellido'),
+          hintText: "Apellido del candidato",
+          labelText: 'Apellido del candidato'),
       onChanged: (value) {
         setState(() {
           _lastname = value;
         });
       },
+    );
+  }
+
+  Widget _country(Interviewed element) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.white,
+          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+            isExpanded: true,
+            hint: Text(
+              'País de residencia',
+              style: _hintText,
+            ),
+            icon: Icon(Icons.arrow_drop_down),
+            value: _countryOpt != null ? _countryOpt : element.country,
+            items: getDropDownOptions(_residenceCountry),
+            onChanged: (opt) {
+              setState(() {
+                _countryOpt = opt;
+              });
+            }),
+      ),
     );
   }
 
@@ -222,6 +333,34 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       onChanged: (value) {
         setState(() {
           _email = value;
+        });
+      },
+    );
+  }
+
+  Widget _createPhone(Interviewed element) {
+    return TextFormField(
+      initialValue: element.phone,
+      style: _style,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+      cursorColor: Color.fromRGBO(0, 45, 116, 1),
+      keyboardType: TextInputType.phone,
+      decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          hintText: 'Número de Teléfono',
+          labelText: 'Número de Teléfono'),
+      onChanged: (value) {
+        setState(() {
+          _phoneNumber = value;
         });
       },
     );
@@ -256,129 +395,6 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
-  List<DropdownMenuItem<String>> getDropDownOptions(List<String> array) {
-    List<DropdownMenuItem<String>> itemlist = new List();
-    array.forEach((item) {
-      itemlist.add(DropdownMenuItem(
-        child: Text(item),
-        value: item,
-      ));
-    });
-    return itemlist;
-  }
-
-  Widget _linkedInUrl(Interviewed element) {
-    return TextFormField(
-      initialValue: element.linkedinUrl,
-      style: _style,
-      textInputAction: TextInputAction.next,
-      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
-      cursorColor: Color.fromRGBO(0, 45, 116, 1),
-      keyboardType: TextInputType.url,
-      decoration: InputDecoration(
-          hintStyle: hintTextColorOnly,
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(
-                color: Color.fromRGBO(0, 45, 116, 1),
-              )),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
-          hintText: "URL de Linkedin",
-          labelText: 'URL de Linkedin'),
-      onChanged: (value) {
-        setState(() {
-          _linkedIn = value;
-        });
-      },
-    );
-  }
-
-  Widget _country(Interviewed element) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: Colors.white,
-          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton(
-            isExpanded: true,
-            hint: Text(
-              'País de residencia',
-              style: _hintText,
-            ),
-            icon: Icon(Icons.arrow_drop_down),
-            value: _countryOpt != null ? _countryOpt : element.country,
-            items: getDropDownOptions(_residenceCountry),
-            onChanged: (opt) {
-              setState(() {
-                _countryOpt = opt;
-              });
-            }),
-      ),
-    );
-  }
-
-  Widget _company(Interviewed element) {
-    return TextFormField(
-      initialValue: element.company,
-      style: _style,
-      textInputAction: TextInputAction.next,
-      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
-      cursorColor: Color.fromRGBO(0, 45, 116, 1),
-      decoration: InputDecoration(
-        hintStyle: hintTextColorOnly,
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(
-              color: Color.fromRGBO(0, 45, 116, 1),
-            )),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-        hintText: 'Trabajo actual',
-        labelText: 'Trabajo actual',
-      ),
-      onChanged: (value) {
-        setState(() {
-          _actualCompany = value;
-        });
-      },
-    );
-  }
-
-  Widget _createPhone(Interviewed element) {
-    return TextFormField(
-      initialValue: element.phone,
-      style: _style,
-      textInputAction: TextInputAction.next,
-      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
-      cursorColor: Color.fromRGBO(0, 45, 116, 1),
-      keyboardType: TextInputType.phone,
-      decoration: InputDecoration(
-          hintStyle: hintTextColorOnly,
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(
-                color: Color.fromRGBO(0, 45, 116, 1),
-              )),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
-          hintText: 'Número de Teléfono',
-          labelText: 'Número de Teléfono'),
-      onChanged: (value) {
-        setState(() {
-          _phoneNumber = value;
-        });
-      },
-    );
-  }
-
   Widget _createSkills(Interviewed element) {
     return TextFormField(
       initialValue: element.skills,
@@ -407,31 +423,15 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
-  Widget _jobSeat(Interviewed element) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: Colors.white,
-          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton(
-            isExpanded: true,
-            hint: Text(
-              'Área de trabajo',
-              style: _hintText,
-            ),
-            icon: Icon(Icons.arrow_drop_down),
-            value: _workOpt != null ? _workOpt : element.area,
-            items: getDropDownOptions(_workArea),
-            onChanged: (opt) {
-              setState(() {
-                _workOpt = opt;
-              });
-            }),
-      ),
-    );
+  List<DropdownMenuItem<String>> getDropDownOptions(List<String> array) {
+    List<DropdownMenuItem<String>> itemlist = new List();
+    array.forEach((item) {
+      itemlist.add(DropdownMenuItem(
+        child: Text(item),
+        value: item,
+      ));
+    });
+    return itemlist;
   }
 
   Widget _submitButton(Interviewed element) {
