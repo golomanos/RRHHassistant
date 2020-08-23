@@ -102,7 +102,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                       SizedBox(height: 20.0),
                       _createSkills(),
                       SizedBox(height: 20.0),
-                      _submitButton()
+                      _submitButton(context)
                     ],
                   ),
                 ],
@@ -503,7 +503,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
         });
   }
 
-  Widget _submitButton() {
+  Widget _submitButton(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(25.0),
       child: Container(
@@ -527,8 +527,9 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                   skills: _skills,
                   status: 'RRHH Interview');
 
-              DBProvider.db.newInterviewed(interviewed);
-              Navigator.pushNamed(context, '/');
+              DBProvider.db.newInterviewed(interviewed).then((response) {
+                _greetinsAlert(context);
+              });
             }
           },
           color: Color.fromRGBO(0, 45, 116, 0.9),
@@ -540,4 +541,57 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       ),
     );
   }
+
+  void _greetinsAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return SimpleDialog(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image(
+                  image: AssetImage('assets/images/check_1.png'),
+                  height: 40.0,
+                ),
+                SizedBox(height: 15.0),
+                Text(
+                  '¡Listo! Se ha agregado el nuevo candidato a la lista "Entrevista de RRHH"',
+                  style: _style,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                RaisedButton(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                      context, "/", (Route<dynamic> route) => false),
+                  color: Color.fromRGBO(0, 45, 116, 0.9),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(23.0)),
+                  child: Text('OK',
+                      style: GoogleFonts.poppins(
+                          fontSize: 12.0, color: Colors.white)),
+                ),
+                SizedBox(height: 15.0),
+              ],
+            )
+          ],
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),
+        );
+      },
+    )
+        .then((value) => Navigator.pushNamedAndRemoveUntil(
+            context, "/", (Route<dynamic> route) => false))
+        .catchError((value) => Navigator.pushNamedAndRemoveUntil(
+            context, "/", (Route<dynamic> route) => false));
+  }
+
 }

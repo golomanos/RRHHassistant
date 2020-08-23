@@ -93,11 +93,16 @@ class RRHHInterview extends StatelessWidget {
                         ? element.rrhhInterviewer
                         : ""),
                 SizedBox(
-                  height: 75.0,
+                  height: 45.0,
                 ),
                 Container(
                     alignment: Alignment.center,
-                    child: _submitButton(element, context))
+                    child: _submitButton(element, context)),
+                SizedBox(height: 20.0,),
+                Container(
+                  alignment: Alignment.center,
+                  child: _cancelButton(element, context)
+                )
               ],
             ),
           ]),
@@ -230,7 +235,8 @@ class RRHHInterview extends StatelessWidget {
                 RaisedButton(
                   padding:
                       EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
-                  onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false),
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                      context, "/", (Route<dynamic> route) => false),
                   color: Color.fromRGBO(0, 45, 116, 0.9),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(23.0)),
@@ -249,8 +255,10 @@ class RRHHInterview extends StatelessWidget {
         );
       },
     )
-        .then((value) => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false))
-        .catchError((value) => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false));
+        .then((value) => Navigator.pushNamedAndRemoveUntil(
+            context, "/", (Route<dynamic> route) => false))
+        .catchError((value) => Navigator.pushNamedAndRemoveUntil(
+            context, "/", (Route<dynamic> route) => false));
   }
 
   void _launchURL(String url) async {
@@ -259,5 +267,100 @@ class RRHHInterview extends StatelessWidget {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  _cancelButton(Interviewed element, BuildContext context) {
+    return ClipRRect(
+        child: Container(
+            child: RaisedButton(
+      elevation: 0.0,
+      onPressed: () {
+        _sendFeedbackAlert(
+            context,
+            element,
+            DBProvider.db.reject,
+            '¿Deseas rechazar este candidato?',
+            'Una vez rechazado podrás verlo en en la lista de "Rechazado"');
+      },
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(23.0)),
+          side: BorderSide(color: Color.fromRGBO(0, 45, 116, 0.9))),
+      padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
+      color: Colors.white,
+      child: Text(
+        'RECHAZAR CANDIDATO',
+        style: GoogleFonts.poppins(
+            fontSize: 14.0, color: Color.fromRGBO(0, 45, 116, 0.9)),
+      ),
+    )));
+  }
+
+  void _sendFeedbackAlert(BuildContext context, Interviewed element,
+      sendToDatabase, String title, String content) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return SimpleDialog(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(117, 117, 117, 1),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Text(
+                    content,
+                    style: _style,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  RaisedButton(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+                    onPressed: () {
+                      sendToDatabase(element.id).then((response) {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, "/", (Route<dynamic> route) => false);
+                      });
+                    },
+                    color: Color.fromRGBO(0, 45, 116, 0.9),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(23.0)),
+                    child: Text('SÍ, ENVIAR',
+                        style: GoogleFonts.poppins(
+                            fontSize: 12.0, color: Colors.white)),
+                  ),
+                  SizedBox(height: 15.0),
+                  FlatButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    color: Colors.white,
+                    child: Text(
+                      'NO, CANCELAR',
+                      style: GoogleFonts.poppins(
+                          fontSize: 12.0,
+                          color: Color.fromRGBO(117, 117, 117, 1)),
+                    ),
+                  )
+                ],
+              )
+            ],
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),
+          );
+        });
   }
 }
