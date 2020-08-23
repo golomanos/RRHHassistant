@@ -44,6 +44,8 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
   final textStyle =
       TextStyle(fontSize: 14.0, color: Color.fromARGB(100, 117, 117, 117));
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final Interviewed element = ModalRoute.of(context).settings.arguments;
@@ -61,76 +63,88 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
           toolbarHeight: 100.0,
         ),
         body: SafeArea(
-            child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 30.0),
-          children: [
-            Card(
-              elevation: 0.0,
-              color: Color.fromRGBO(244, 244, 244, 1),
-              child: ListTile(
-                contentPadding: EdgeInsets.all(15.0),
-                title: Text('${element.firstName} ${element.lastName}',
-                    style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromRGBO(117, 117, 117, 1))),
-                subtitle: Container(
-                  margin: EdgeInsets.only(top: 5.0),
-                  child: Text('${element.area}  ·  ${element.country}',
-                      style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color.fromRGBO(117, 117, 117, 1))),
-                ),
-                trailing: Icon(Icons.keyboard_arrow_right),
-                onTap: () {
-                  Navigator.pushNamed(context, 'detail', arguments: element);
-                },
-              ),
-            ),
-            SizedBox(
-              height: 30.0,
-            ),
-            _assignedRecruiter(),
-            SizedBox(
-              height: 20.0,
-            ),
-            _feedbackField(),
-            SizedBox(
-              height: 75.0,
-            ),
-            Container(
-                alignment: Alignment.center,
-                child: _submitButton(element, context))
-          ],
-        )));
+            child: Form(
+                key: _formKey,
+                child: ListView(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 30.0),
+                  children: [
+                    Card(
+                      elevation: 0.0,
+                      color: Color.fromRGBO(244, 244, 244, 1),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.all(15.0),
+                        title: Text('${element.firstName} ${element.lastName}',
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(117, 117, 117, 1))),
+                        subtitle: Container(
+                          margin: EdgeInsets.only(top: 5.0),
+                          child: Text('${element.area}  ·  ${element.country}',
+                              style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromRGBO(117, 117, 117, 1))),
+                        ),
+                        trailing: Icon(Icons.keyboard_arrow_right),
+                        onTap: () {
+                          Navigator.pushNamed(context, 'detail',
+                              arguments: element);
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    _assignedRecruiter(),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    _feedbackField(),
+                    SizedBox(
+                      height: 75.0,
+                    ),
+                    Container(
+                        alignment: Alignment.center,
+                        child: _submitButton(element, context))
+                  ],
+                ))));
   }
 
   _assignedRecruiter() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: Colors.white,
-          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton(
-            isExpanded: true,
-            hint: Text(
-              'Entrevistador asignado',
-              style: _hintText,
-            ),
-            icon: Icon(Icons.arrow_drop_down),
-            value: _assignedRecruiters,
-            items: getDropDownOptions(_recruiters),
-            onChanged: (opt) {
-              setState(() {
-                _assignedRecruiters = opt;
-              });
-            }),
-      ),
-    );
+    return DropdownButtonFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Campo requerido *';
+          }
+          return null;
+        },
+        isExpanded: true,
+        hint: Text(
+          'Entrevistador asignado',
+          style: _hintText,
+        ),
+        decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+        ),
+        icon: Icon(Icons.arrow_drop_down),
+        value: _assignedRecruiters,
+        items: getDropDownOptions(_recruiters),
+        onChanged: (opt) {
+          setState(() {
+            _assignedRecruiters = opt;
+          });
+        });
   }
 
   List<DropdownMenuItem<String>> getDropDownOptions(List<String> array) {
@@ -145,8 +159,14 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
   }
 
   _feedbackField() {
-    return TextField(
+    return TextFormField(
       textAlign: TextAlign.left,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Campo requerido *';
+        }
+        return null;
+      },
       textAlignVertical: TextAlignVertical.top,
       style: _style,
       maxLines: 10,
@@ -162,6 +182,7 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
           hintText: "Habilidades técnicas y comentarios",
           labelText: 'Habilidades técnicas y comentarios'),
       onChanged: (value) {
@@ -178,7 +199,11 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
         child: Container(
             child: RaisedButton(
           textColor: Colors.white,
-          onPressed: () => _sendFeedbackAlert(context, element),
+          onPressed: () {
+            if (_formKey.currentState.validate()) {
+              _sendFeedbackAlert(context, element);
+            }
+          },
           padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
           color: Color.fromRGBO(0, 45, 116, 0.9),
           child: Text(
@@ -193,48 +218,56 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return SimpleDialog(children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  '¿Estás seguro de enviar tu feedback?',
-                  style: _style,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 20.0,),
-                RaisedButton(
-                  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-                  onPressed: () {
-                    DBProvider.db.addTechnicalFeedback(_techFeedback, _assignedRecruiters, element.id).then( (response) {
-                      _greetinsAlert(context);
-                    });
-                  },
-                  color: Color.fromRGBO(0, 45, 116, 0.9),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(23.0)
+          return SimpleDialog(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '¿Estás seguro de enviar tu feedback?',
+                    style: _style,
+                    textAlign: TextAlign.center,
                   ),
-                  child: Text('SÍ, ENVIAR',
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  RaisedButton(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+                    onPressed: () {
+                      DBProvider.db
+                          .addTechnicalFeedback(
+                              _techFeedback, _assignedRecruiters, element.id)
+                          .then((response) {
+                        _greetinsAlert(context);
+                      });
+                    },
+                    color: Color.fromRGBO(0, 45, 116, 0.9),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(23.0)),
+                    child: Text('SÍ, ENVIAR',
+                        style: GoogleFonts.poppins(
+                            fontSize: 12.0, color: Colors.white)),
+                  ),
+                  SizedBox(height: 15.0),
+                  FlatButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    color: Colors.white,
+                    child: Text(
+                      'NO, CANCELAR',
                       style: GoogleFonts.poppins(
-                          fontSize: 12.0, color: Colors.white)),
-                ),
-                SizedBox(height: 15.0),
-                FlatButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  color: Colors.white,
-                  child: Text(
-                    'NO, CANCELAR',
-                    style: GoogleFonts.poppins(
-                          fontSize: 12.0, color: Color.fromRGBO(117, 117, 117, 1)),
-                  ),
-                )
-              ],
-            )
-          ],
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0)
-          ),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),);
+                          fontSize: 12.0,
+                          color: Color.fromRGBO(117, 117, 117, 1)),
+                    ),
+                  )
+                ],
+              )
+            ],
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),
+          );
         });
   }
 
@@ -243,25 +276,32 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
       context: context,
       barrierDismissible: false,
       builder: (context) {
-        return SimpleDialog(children: [
+        return SimpleDialog(
+          children: [
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image(image: AssetImage('assets/images/check_1.png'), height: 40.0,),
+                Image(
+                  image: AssetImage('assets/images/check_1.png'),
+                  height: 40.0,
+                ),
                 SizedBox(height: 15.0),
                 Text(
                   '¡Gracias por formar parte de nuestro equipo de entrevistadores!',
                   style: _style,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20.0,),
+                SizedBox(
+                  height: 20.0,
+                ),
                 RaisedButton(
-                  padding: EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
-                  onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                      context, "/", (Route<dynamic> route) => false),
                   color: Color.fromRGBO(0, 45, 116, 0.9),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(23.0)
-                  ),
+                      borderRadius: BorderRadius.circular(23.0)),
                   child: Text('OK',
                       style: GoogleFonts.poppins(
                           fontSize: 12.0, color: Colors.white)),
@@ -270,11 +310,16 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
               ],
             )
           ],
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0)
-          ),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),);
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),
+        );
       },
-    ).then((value) => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false)).catchError((value) => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false));
+    )
+        .then((value) => Navigator.pushNamedAndRemoveUntil(
+            context, "/", (Route<dynamic> route) => false))
+        .catchError((value) => Navigator.pushNamedAndRemoveUntil(
+            context, "/", (Route<dynamic> route) => false));
   }
 }
