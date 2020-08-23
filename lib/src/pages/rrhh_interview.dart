@@ -225,7 +225,7 @@ class RRHHInterview extends StatelessWidget {
                 ),
                 SizedBox(height: 15.0),
                 Text(
-                  '¡Gracias por formar parte de nuestro equipo de entrevistadores!',
+                  'Se ha enviado el candidato a la lista "Entrevista Técnica"',
                   style: _style,
                   textAlign: TextAlign.center,
                 ),
