@@ -22,8 +22,8 @@ class DBProvider {
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "test2.db");
-    return await openDatabase(path, version: 2, onOpen: (db) {},
+    String path = join(documentsDirectory.path, "asistenterrhh.db");
+    return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute("CREATE TABLE interviewed ("
           "id INTEGER PRIMARY KEY,"
