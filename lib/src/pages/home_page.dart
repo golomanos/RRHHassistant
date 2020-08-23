@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                     color: Color.fromRGBO(117, 117, 117, 1)),
               ),
               SizedBox(height: 5.0),
-              Text('${element.area} . ${element.country}',
+              Text('${element.area}  ·  ${element.country}',
                   style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.w500,
