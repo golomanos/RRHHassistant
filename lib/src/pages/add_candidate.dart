@@ -81,25 +81,25 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
                   Column(
                     children: [
                       _createRecruiter(),
-                      SizedBox(height: 40.0),
+                      SizedBox(height: 50.0),
                       _linkedInUrl(),
                       SizedBox(height: 20.0),
                       _jobSeat(),
                       SizedBox(height: 20.0),
                       _company(),
-                      SizedBox(height: 40.0),
+                      SizedBox(height: 20.0),
                       _createName(),
                       SizedBox(height: 20.0),
                       _createLastName(),
                       SizedBox(height: 20.0),
                       _country(),
-                      SizedBox(height: 40.0),
+                      SizedBox(height: 20.0),
                       _createEmail(),
                       SizedBox(height: 20.0),
                       _createPhone(),
                       SizedBox(height: 20.0),
                       _englishLevelDropDown(),
-                      SizedBox(height: 40.0),
+                      SizedBox(height: 20.0),
                       _createSkills(),
                       SizedBox(height: 20.0),
                       _submitButton()
@@ -170,8 +170,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintText: "Nombre",
-          labelText: 'Nombre'),
+          hintText: "Nombre del candidato",
+          labelText: 'Nombre del candidato'),
       onChanged: (value) {
         setState(() {
           _name = value;
@@ -206,8 +206,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintText: "Apellido",
-          labelText: 'Apellido'),
+          hintText: "Apellido del candidato",
+          labelText: 'Apellido del candidato'),
       onChanged: (value) {
         setState(() {
           _lastname = value;
@@ -320,8 +320,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-          hintText: "URL de Linkedin",
-          labelText: 'URL de Linkedin'),
+          hintText: "Linkedin del candidato (URL)",
+          labelText: 'Linkedin del candidato (URL)'),
       onChanged: (value) {
         setState(() {
           _linkedIn = value;
@@ -388,8 +388,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
-        hintText: 'Trabajo actual',
-        labelText: 'Trabajo actual',
+        hintText: '¿Dónde trabaja actualmente?',
+        labelText: '¿Dónde trabaja actualmente?',
       ),
       onChanged: (value) {
         setState(() {
@@ -490,7 +490,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
         ),
         hint: Text(
-          'Área de trabajo',
+          'Cargo laboral postulado',
           style: _hintText,
         ),
         icon: Icon(Icons.arrow_drop_down),
