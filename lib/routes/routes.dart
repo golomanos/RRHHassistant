@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:terathon2020/src/pages/add_candidate.dart';
+import 'package:terathon2020/src/pages/edit_page.dart';
 import 'package:terathon2020/src/pages/home_page.dart';
 import 'package:terathon2020/src/pages/rrhh_interview.dart';
 import 'package:terathon2020/src/pages/technical_feedback.dart';
@@ -11,6 +12,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'candidate': (BuildContext context) => AddCandidatePage(),
     'techfeedback': (BuildContext context) => TechnicalFeedbackPage(),
     'techinterview': (BuildContext context) => TechnicalInterviewPage(),
-    'rrhhinterview': (BuildContext context) => RRHHInterview()
+    'rrhhinterview': (BuildContext context) => RRHHInterview(),
+    'editcandidate': (BuildContext context) => EditCandidatePage()
   };
 }
