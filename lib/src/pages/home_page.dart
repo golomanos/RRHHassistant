@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> {
   Widget _showMessage() {
     return Center(
       child: Text(
-        '(+) Add a new candidate in the list',
+        '(+) Agrega un nuevo candidato a la lista',
         style: TextStyle(
             color: Color.fromRGBO(185, 185, 185, 1),
             fontSize: 12.0,
