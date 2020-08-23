@@ -84,13 +84,13 @@ class DBProvider {
 
   addTechnicalFeedback( String feedback, String interviewer, int id ) async {
     final db = await database;
-    var res = await db.rawUpdate("UPDATE interviewed SET technical_feedback = ?, status = 'Pending for Proposal', technical_interviewer = ?  WHERE id = ?", [feedback, interviewer, id]);
+    var res = await db.rawUpdate("UPDATE interviewed SET technical_feedback = ?, status = 'RRHH review', technical_interviewer = ?  WHERE id = ?", [feedback, interviewer, id]);
     return res;
   }
 
-  reject( String reason, int id ) async {
+  reject( int id ) async {
     final db = await database;
-    var res = await db.rawUpdate("UPDATE interviewed SET reject_reason = ?, status = 'Rejected'  WHERE id = ?", [reason, id]);
+    var res = await db.rawUpdate("UPDATE interviewed SET  status = 'Rejected'  WHERE id = ?", [id]);
     return res;
   }
 

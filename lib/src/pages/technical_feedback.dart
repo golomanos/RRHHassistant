@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:terathon2020/src/models/interviewed_model.dart';
+import 'package:terathon2020/src/providers/db_provider.dart';
 
 class TechnicalFeedbackPage extends StatefulWidget {
   //TechnicalFeedbackPage({Key key}) : super(key: key);
@@ -63,6 +64,30 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
             child: ListView(
           padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 30.0),
           children: [
+            Card(
+              elevation: 0.0,
+              color: Color.fromRGBO(244, 244, 244, 1),
+              child: ListTile(
+                contentPadding: EdgeInsets.all(15.0),
+                title: Text('${element.firstName} ${element.lastName}',
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromRGBO(117, 117, 117, 1))),
+                subtitle: Container(
+                  margin: EdgeInsets.only(top: 5.0),
+                  child: Text('${element.area}  ·  ${element.country}',
+                      style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromRGBO(117, 117, 117, 1))),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.pushNamed(context, 'detail', arguments: element);
+                },
+              ),
+            ),
             SizedBox(
               height: 30.0,
             ),
@@ -153,63 +178,63 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
         child: Container(
             child: RaisedButton(
           textColor: Colors.white,
-          onPressed: () => _sendFeedbackAlert(context),
+          onPressed: () => _sendFeedbackAlert(context, element),
           padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
           color: Color.fromRGBO(0, 45, 116, 0.9),
           child: Text(
             'ENVIAR A ENTREVISTA TÉCNICA',
-            style: GoogleFonts.poppins(fontSize: 14.0, color: Colors.white),
+            style: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white),
           ),
         )));
   }
 
-  void _sendFeedbackAlert(BuildContext context) {
+  void _sendFeedbackAlert(BuildContext context, Interviewed element) {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0)),
-            content: Column(
+          return SimpleDialog(children: [
+            Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Did you already finished this interview?',
+                  '¿Estás seguro de enviar tu feedback?',
                   style: _style,
                   textAlign: TextAlign.center,
-                )
-              ],
-            ),
-            actions: [
-              Center(
-                child: RaisedButton(
+                ),
+                SizedBox(height: 20.0,),
+                RaisedButton(
+                  padding: EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
                   onPressed: () {
-                    /*DBProvider.db
-                        .addInterviewerFeedback(_techFeedback, _candidateId);*/
-                    _greetinsAlert(context);
+                    DBProvider.db.addTechnicalFeedback(_techFeedback, _assignedRecruiters, element.id).then( (response) {
+                      _greetinsAlert(context);
+                    });
                   },
                   color: Color.fromRGBO(0, 45, 116, 0.9),
-                  shape: StadiumBorder(),
-                  child: Text('YES, SEND MY FEEDBACK',
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(23.0)
+                  ),
+                  child: Text('SÍ, ENVIAR',
                       style: GoogleFonts.poppins(
-                          fontSize: 14.0, color: Colors.white)),
+                          fontSize: 12.0, color: Colors.white)),
                 ),
-              ),
-              Center(
-                child: RaisedButton(
-                  elevation: 0.0,
+                SizedBox(height: 15.0),
+                FlatButton(
                   onPressed: () => Navigator.of(context).pop(),
                   color: Colors.white,
-                  shape: StadiumBorder(),
                   child: Text(
-                    'NO, CANCEL',
-                    style: _style,
+                    'NO, CANCELAR',
+                    style: GoogleFonts.poppins(
+                          fontSize: 12.0, color: Color.fromRGBO(117, 117, 117, 1)),
                   ),
-                ),
-              )
-            ],
-          );
+                )
+              ],
+            )
+          ],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0)
+          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),);
         });
   }
 
@@ -218,35 +243,38 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
       context: context,
       barrierDismissible: false,
       builder: (context) {
-        return AlertDialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Your feedback has already been sent. Thanks for being part of our interviwers team',
-                style: GoogleFonts.poppins(
-                    fontSize: 14.0, fontWeight: FontWeight.w500),
-                textAlign: TextAlign.center,
-              )
-            ],
-          ),
-          actions: [
-            Center(
-              child: RaisedButton(
-                  elevation: 0.0,
-                  shape: StadiumBorder(),
-                  color: Color.fromRGBO(0, 45, 116, 0.9),
+        return SimpleDialog(children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image(image: AssetImage('assets/images/check_1.png'), height: 40.0,),
+                SizedBox(height: 15.0),
+                Text(
+                  '¡Gracias por formar parte de nuestro equipo de entrevistadores!',
+                  style: _style,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20.0,),
+                RaisedButton(
+                  padding: EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
                   onPressed: () => Navigator.pushNamed(context, '/'),
-                  child: Text(
-                    'OK',
-                    style: GoogleFonts.poppins(fontSize: 14),
-                  )),
+                  color: Color.fromRGBO(0, 45, 116, 0.9),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(23.0)
+                  ),
+                  child: Text('OK',
+                      style: GoogleFonts.poppins(
+                          fontSize: 12.0, color: Colors.white)),
+                ),
+                SizedBox(height: 15.0),
+              ],
             )
           ],
-        );
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0)
+          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),);
       },
-    );
+    ).then((value) => Navigator.pushNamed(context, '/')).catchError((value) => Navigator.pushNamed(context, '/'));
   }
 }

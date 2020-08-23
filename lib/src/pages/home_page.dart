@@ -152,8 +152,10 @@ class _HomePageState extends State<HomePage> {
       onTap: () {
         if(element.status == 'RRHH Interview') {
           Navigator.pushNamed(context, 'rrhhinterview', arguments: element);
-        } else {
+        } else if ( element.status == 'Technical Interview') {
           Navigator.pushNamed(context, 'techfeedback', arguments: element);
+        } else {
+          Navigator.pushNamed(context, 'rrhhreview', arguments: element);
         }
       } 
     );

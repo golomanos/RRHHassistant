@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:terathon2020/src/models/interviewed_model.dart';
-import 'package:terathon2020/src/providers/db_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class RRHHInterview extends StatelessWidget {
+class DetailPage extends StatelessWidget {
+
   final header = GoogleFonts.poppins(
       fontSize: 20.0,
-      color: Color.fromRGBO(117, 117, 117, 1),
-      fontWeight: FontWeight.w500);
-
-  final _style = GoogleFonts.poppins(
-      fontSize: 14.0,
       color: Color.fromRGBO(117, 117, 117, 1),
       fontWeight: FontWeight.w500);
   
@@ -28,19 +23,9 @@ class RRHHInterview extends StatelessWidget {
           elevation: 0.0,
           backgroundColor: Colors.white,
           title: Text(
-            'Entrevista de RRHH',
+            'Detalle del entrevistado',
             style: header,
           ),
-          actions: [
-            IconButton(
-                icon: Image(
-                  image: AssetImage('assets/images/edit.png'),
-                  height: 23.0,
-                ),
-                onPressed: () {
-                  print('clicked');
-                })
-          ],
           toolbarHeight: 100.0,
         ),
         body: Container(
@@ -82,12 +67,7 @@ class RRHHInterview extends StatelessWidget {
                 SizedBox(height: 15.0),
                 _createSection('Habilidades y comentarios', element.skills != null ? element.skills : ""),
                 SizedBox(height: 30.0),
-                _createRecluter('Reclutador asignado', element.rrhhInterviewer != null ? element.rrhhInterviewer : ""),
-                SizedBox(height: 75.0,),
-                Container(
-                  alignment: Alignment.center,
-                  child: _submitButton(element, context)
-                )
+                _createRecluter('Reclutador asignado', element.rrhhInterviewer != null ? element.rrhhInterviewer : "")
               ],
             ),]
           ),
@@ -172,66 +152,6 @@ class RRHHInterview extends StatelessWidget {
         ],
       )
     ]);
-  }
-
-  _submitButton(Interviewed element, BuildContext context) {
-    return ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(23.0)),
-        child: Container(
-            child: RaisedButton(
-              textColor: Colors.white,
-              onPressed: () {
-                DBProvider.db.sendToTechnicalInterview(element.id).then((response) {
-                  _greetinsAlert(context);
-                });
-              },
-              padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
-              color: Color.fromRGBO(0, 45, 116, 0.9),
-              child: Text(
-                'ENVIAR A ENTREVISTA TÉCNICA',
-                style: GoogleFonts.poppins(fontSize: 14.0, color: Colors.white),
-              ),
-            )));
-  }
-
-  void _greetinsAlert(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return SimpleDialog(children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image(image: AssetImage('assets/images/check_1.png'), height: 40.0,),
-                SizedBox(height: 15.0),
-                Text(
-                  '¡Gracias por formar parte de nuestro equipo de entrevistadores!',
-                  style: _style,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 20.0,),
-                RaisedButton(
-                  padding: EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
-                  onPressed: () => Navigator.pushNamed(context, '/'),
-                  color: Color.fromRGBO(0, 45, 116, 0.9),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(23.0)
-                  ),
-                  child: Text('OK',
-                      style: GoogleFonts.poppins(
-                          fontSize: 12.0, color: Colors.white)),
-                ),
-                SizedBox(height: 15.0),
-              ],
-            )
-          ],
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0)
-          ),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),);
-      },
-    ).then((value) => Navigator.pushNamed(context, '/')).catchError((value) => Navigator.pushNamed(context, '/'));
   }
 
   void _launchURL(String url) async  {
