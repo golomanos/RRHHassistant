@@ -526,7 +526,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
           },
           color: Color.fromRGBO(0, 45, 116, 0.9),
           child: Text(
-            'EDITAR CANDIDATO',
+            'GUARDAR',
             style: GoogleFonts.poppins(fontSize: 14.0, color: Colors.white),
           ),
         ),

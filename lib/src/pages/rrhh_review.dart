@@ -124,7 +124,7 @@ class RRHHReview extends StatelessWidget {
             child: RaisedButton(
               textColor: Colors.white,
               onPressed: () {
-                _sendFeedbackAlert(context, element, DBProvider.db.hired, '¿Deseas contratar este candidato?', 'Una vez contratado podrás verlo en en la lista de "Contratado"');
+                _sendFeedbackAlert(context, element, DBProvider.db.hired, '¿Deseas contratar este candidato?', 'Una vez contratado podrás verlo en en la lista de "Contratado"', 'SÍ, CONTRATAR');
               },
               padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
               color: Color.fromRGBO(0, 45, 116, 0.9),
@@ -141,7 +141,7 @@ class RRHHReview extends StatelessWidget {
             child: RaisedButton(
               elevation: 0.0,
               onPressed: () {
-                _sendFeedbackAlert(context, element, DBProvider.db.reject, '¿Deseas rechazar este candidato?', 'Una vez rechazado podrás verlo en en la lista de "Rechazado"');
+                _sendFeedbackAlert(context, element, DBProvider.db.reject, '¿Deseas rechazar este candidato?', 'Una vez rechazado podrás verlo en en la lista de "Rechazado"', 'SÍ, RECHAZAR');
               },
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(23.0)),
@@ -156,7 +156,7 @@ class RRHHReview extends StatelessWidget {
             )));
   }
 
-  void _sendFeedbackAlert(BuildContext context, Interviewed element, sendToDatabase, String title, String content) {
+  void _sendFeedbackAlert(BuildContext context, Interviewed element, sendToDatabase, String title, String content, String button) {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -197,7 +197,7 @@ class RRHHReview extends StatelessWidget {
                     color: Color.fromRGBO(0, 45, 116, 0.9),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(23.0)),
-                    child: Text('SÍ, ENVIAR',
+                    child: Text(button,
                         style: GoogleFonts.poppins(
                             fontSize: 12.0, color: Colors.white)),
                   ),

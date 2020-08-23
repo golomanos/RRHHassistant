@@ -338,7 +338,7 @@ class RRHHInterview extends StatelessWidget {
                     color: Color.fromRGBO(0, 45, 116, 0.9),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(23.0)),
-                    child: Text('SÍ, ENVIAR',
+                    child: Text('SÍ, RECHAZAR',
                         style: GoogleFonts.poppins(
                             fontSize: 12.0, color: Colors.white)),
                   ),
