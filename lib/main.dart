@@ -9,9 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Teravision - Asistente de reclutamiento',
         theme: ThemeData(
-          fontFamily: 'Poppins',
-          primaryColor: Color.fromRGBO(0, 45, 116, 1)
-        ),
+            fontFamily: 'Poppins', primaryColor: Color.fromRGBO(0, 45, 116, 1)),
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: getApplicationRoutes());

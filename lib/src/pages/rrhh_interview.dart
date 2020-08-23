@@ -9,12 +9,10 @@ class RRHHInterview extends StatelessWidget {
       fontSize: 20.0,
       color: Color.fromRGBO(117, 117, 117, 1),
       fontWeight: FontWeight.w500);
-  
 
   @override
   Widget build(BuildContext context) {
-  
-  final Interviewed element = ModalRoute.of(context).settings.arguments;
+    final Interviewed element = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -33,6 +31,8 @@ class RRHHInterview extends StatelessWidget {
                   height: 23.0,
                 ),
                 onPressed: () {
+                  Navigator.pushNamed(context, 'editcandidate',
+                      arguments: element);
                   print('clicked');
                 })
           ],
@@ -63,24 +63,35 @@ class RRHHInterview extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: Color.fromRGBO(117, 117, 117, 1))),
               SizedBox(height: 30.0),
-              _createURL('URL de Linkedin', element.linkedinUrl != null ? element.linkedinUrl : ""),
+              _createURL('URL de Linkedin',
+                  element.linkedinUrl != null ? element.linkedinUrl : ""),
               SizedBox(height: 15.0),
-              _createSection('Trabajo actual', element.company != null ? element.company : ""),
+              _createSection('Trabajo actual',
+                  element.company != null ? element.company : ""),
               SizedBox(height: 15.0),
-              _createSection('Correo electrónico', element.email != null ? element.email : ""),
+              _createSection('Correo electrónico',
+                  element.email != null ? element.email : ""),
               SizedBox(height: 15.0),
-              _createSection('Número de teléfono', element.phone != null ? element.phone : ""),
+              _createSection('Número de teléfono',
+                  element.phone != null ? element.phone : ""),
               SizedBox(height: 15.0),
-              _createSection('Nivel de inglés', element.englishLevel != null ? element.englishLevel : ""),
+              _createSection('Nivel de inglés',
+                  element.englishLevel != null ? element.englishLevel : ""),
               SizedBox(height: 15.0),
-              _createSection('Habilidades y comentarios', element.skills != null ? element.skills : ""),
+              _createSection('Habilidades y comentarios',
+                  element.skills != null ? element.skills : ""),
               SizedBox(height: 30.0),
-              _createRecluter('Reclutador asignado', element.rrhhInterviewer != null ? element.rrhhInterviewer : ""),
-              SizedBox(height: 75.0,),
+              _createRecluter(
+                  'Reclutador asignado',
+                  element.rrhhInterviewer != null
+                      ? element.rrhhInterviewer
+                      : ""),
+              SizedBox(
+                height: 75.0,
+              ),
               Container(
-                alignment: Alignment.center,
-                child: _submitButton(element, context)
-              )
+                  alignment: Alignment.center,
+                  child: _submitButton(element, context))
             ],
           ),
         ));
@@ -171,22 +182,22 @@ class RRHHInterview extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(23.0)),
         child: Container(
             child: RaisedButton(
-              textColor: Colors.white,
-              onPressed: () {
-                DBProvider.db.sendToTechnicalInterview(element.id).then((response) {
-                  Navigator.pushNamed(context, '/');
-                });
-              },
-              padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
-              color: Color.fromRGBO(0, 45, 116, 0.9),
-              child: Text(
-                'ENVIAR A ENTREVISTA TÉCNICA',
-                style: GoogleFonts.poppins(fontSize: 14.0, color: Colors.white),
-              ),
-            )));
+          textColor: Colors.white,
+          onPressed: () {
+            DBProvider.db.sendToTechnicalInterview(element.id).then((response) {
+              Navigator.pushNamed(context, '/');
+            });
+          },
+          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
+          color: Color.fromRGBO(0, 45, 116, 0.9),
+          child: Text(
+            'ENVIAR A ENTREVISTA TÉCNICA',
+            style: GoogleFonts.poppins(fontSize: 14.0, color: Colors.white),
+          ),
+        )));
   }
 
-  void _launchURL(String url) async  {
+  void _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {

@@ -59,8 +59,13 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     'Human Resources',
     'Project Management'
   ];
+
+  Map candidato;
+
   @override
   Widget build(BuildContext context) {
+    final Interviewed element = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -68,7 +73,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
         elevation: 0.0,
         backgroundColor: Colors.white,
         title: Text(
-          'Agrega un candidato',
+          'Editar un candidato',
           style: header,
         ),
       ),
@@ -78,29 +83,29 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
         children: [
           Column(
             children: [
-              _createRecruiter(),
+              _createRecruiter(element),
               SizedBox(height: 40.0),
-              _linkedInUrl(),
+              _linkedInUrl(element),
               SizedBox(height: 20.0),
-              _jobSeat(),
+              _jobSeat(element),
               SizedBox(height: 20.0),
-              _company(),
+              _company(element),
               SizedBox(height: 40.0),
-              _createName(),
+              _createName(element),
               SizedBox(height: 20.0),
-              _createLastName(),
+              _createLastName(element),
               SizedBox(height: 20.0),
-              _country(),
+              _country(element),
               SizedBox(height: 40.0),
-              _createEmail(),
+              _createEmail(element),
               SizedBox(height: 20.0),
-              _createPhone(),
+              _createPhone(element),
               SizedBox(height: 20.0),
-              _englishLevelDropDown(),
+              _englishLevelDropDown(element),
               SizedBox(height: 40.0),
-              _createSkills(),
+              _createSkills(element),
               SizedBox(height: 20.0),
-              _submitButton()
+              _submitButton(element)
             ],
           ),
         ],
@@ -108,7 +113,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
-  _createRecruiter() {
+  _createRecruiter(Interviewed element) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -123,7 +128,9 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
               'Reclutador asignado',
               style: _hintText,
             ),
-            value: _recruiterOpt,
+            value: element.rrhhInterviewer != null
+                ? element.rrhhInterviewer
+                : _recruiterOpt,
             items: getDropDownOptions(_assignedRecruiter),
             onChanged: (opt) {
               setState(() {
@@ -134,35 +141,36 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
-  Widget _createName() {
-    return TextField(
+  Widget _createName(Interviewed element) {
+    return TextFormField(
+      initialValue: element.firstName,
       style: _style,
       autofocus: false,
       keyboardType: TextInputType.name,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-          hintStyle: hintTextColorOnly,
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(
-                color: Color.fromRGBO(0, 45, 116, 1),
-              )),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
-          hintText: "Nombre",
-          labelText: 'Nombre'),
+        hintStyle: hintTextColorOnly,
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(
+              color: Color.fromRGBO(0, 45, 116, 1),
+            )),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+        hintText: "Nombre",
+        labelText: 'Nombre',
+      ),
       onChanged: (value) {
-        setState(() {
-          _name = value;
-        });
+        _name = value;
       },
     );
   }
 
-  Widget _createLastName() {
-    return TextField(
+  Widget _createLastName(Interviewed element) {
+    return TextFormField(
+      initialValue: element.lastName,
       style: _style,
       autofocus: false,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
@@ -188,8 +196,9 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
-  Widget _createEmail() {
-    return TextField(
+  Widget _createEmail(Interviewed element) {
+    return TextFormField(
+      initialValue: element.email,
       style: _style,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.emailAddress,
@@ -213,7 +222,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
-  Widget _englishLevelDropDown() {
+  Widget _englishLevelDropDown(Interviewed element) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -229,7 +238,9 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
               style: _hintText,
             ),
             icon: Icon(Icons.arrow_drop_down),
-            value: _selectedOption,
+            value: element.englishLevel != null
+                ? element.englishLevel
+                : _selectedOption,
             items: getDropDownOptions(_englishLevel),
             onChanged: (opt) {
               setState(() {
@@ -251,8 +262,9 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     return itemlist;
   }
 
-  Widget _linkedInUrl() {
-    return TextField(
+  Widget _linkedInUrl(Interviewed element) {
+    return TextFormField(
+      initialValue: element.linkedinUrl,
       style: _style,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.url,
@@ -276,7 +288,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
-  Widget _country() {
+  Widget _country(Interviewed element) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -292,7 +304,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
               style: _hintText,
             ),
             icon: Icon(Icons.arrow_drop_down),
-            value: _countryOpt,
+            value: element.country != null ? element.country : _countryOpt,
             items: getDropDownOptions(_residenceCountry),
             onChanged: (opt) {
               setState(() {
@@ -303,8 +315,9 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
-  Widget _company() {
-    return TextField(
+  Widget _company(Interviewed element) {
+    return TextFormField(
+      initialValue: element.company,
       style: _style,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       decoration: InputDecoration(
@@ -329,8 +342,9 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
-  Widget _createPhone() {
-    return TextField(
+  Widget _createPhone(Interviewed element) {
+    return TextFormField(
+      initialValue: element.phone,
       style: _style,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.phone,
@@ -354,8 +368,9 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
-  Widget _createSkills() {
-    return TextField(
+  Widget _createSkills(Interviewed element) {
+    return TextFormField(
+      initialValue: element.skills,
       style: _style,
       maxLines: 3,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
@@ -379,7 +394,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
-  Widget _jobSeat() {
+  Widget _jobSeat(Interviewed element) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -395,7 +410,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
               style: _hintText,
             ),
             icon: Icon(Icons.arrow_drop_down),
-            value: _workOpt,
+            value: element.area != null ? element.area : _workOpt,
             items: getDropDownOptions(_workArea),
             onChanged: (opt) {
               setState(() {
@@ -406,7 +421,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 
-  Widget _submitButton() {
+  Widget _submitButton(Interviewed element) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(25.0),
       child: Container(
@@ -416,20 +431,26 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
           textColor: Colors.white,
           onPressed: () {
             final interviewed = new Interviewed(
-                rrhhInterviewer: _recruiterOpt,
-                linkedinUrl: _linkedIn,
-                area: _workOpt,
-                company: _actualCompany,
-                firstName: _name,
-                lastName: _lastname,
-                country: _countryOpt,
-                email: _email,
-                phone: _phoneNumber,
-                englishLevel: _selectedOption,
-                skills: _skills,
+                id: element.id,
+                rrhhInterviewer: _recruiterOpt != null
+                    ? _recruiterOpt
+                    : element.rrhhInterviewer,
+                linkedinUrl: _linkedIn == "" ? element.linkedinUrl : _linkedIn,
+                area: _workOpt != null ? _workOpt : element.area,
+                company:
+                    _actualCompany == "" ? element.company : _actualCompany,
+                firstName: _name == "" ? element.firstName : _name,
+                lastName: _lastname == "" ? element.lastName : _lastname,
+                country: _countryOpt != null ? _countryOpt : element.country,
+                email: _email == "" ? element.email : _email,
+                phone: _phoneNumber == "" ? element.phone : _phoneNumber,
+                englishLevel: _selectedOption != null
+                    ? _selectedOption
+                    : element.englishLevel,
+                skills: _skills == "" ? element.skills : _skills,
                 status: 'RRHH Interview');
 
-            DBProvider.db.newInterviewed(interviewed);
+            DBProvider.db.updateInterviewed(element.id, interviewed);
             Navigator.pushNamed(context, '/');
           },
           color: Color.fromRGBO(0, 45, 116, 0.9),
@@ -442,5 +463,3 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
     );
   }
 }
-
-
