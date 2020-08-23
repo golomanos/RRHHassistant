@@ -139,6 +139,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       style: _style,
       autofocus: false,
       keyboardType: TextInputType.name,
+      textInputAction: TextInputAction.next,
+      onSubmitted: (_) => FocusScope.of(context).nextFocus(),
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
@@ -166,6 +168,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       style: _style,
       autofocus: false,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
+      textInputAction: TextInputAction.next,
+      onSubmitted: (_) => FocusScope.of(context).nextFocus(),
       textCapitalization: TextCapitalization.sentences,
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
@@ -193,6 +197,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       style: _style,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      onSubmitted: (_) => FocusScope.of(context).nextFocus(),
       decoration: InputDecoration(
           hintStyle: hintTextColorOnly,
           focusedBorder: OutlineInputBorder(
@@ -256,6 +262,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       style: _style,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.url,
+      textInputAction: TextInputAction.next,
+      onSubmitted: (_) => FocusScope.of(context).nextFocus(),
       decoration: InputDecoration(
           hintStyle: hintTextColorOnly,
           focusedBorder: OutlineInputBorder(
@@ -307,6 +315,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
     return TextField(
       style: _style,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
+      textInputAction: TextInputAction.next,
+      onSubmitted: (_) => FocusScope.of(context).nextFocus(),
       decoration: InputDecoration(
         hintStyle: hintTextColorOnly,
         focusedBorder: OutlineInputBorder(
@@ -334,6 +344,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       style: _style,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
       keyboardType: TextInputType.phone,
+      textInputAction: TextInputAction.next,
+      onSubmitted: (_) => FocusScope.of(context).nextFocus(),
       decoration: InputDecoration(
           hintStyle: hintTextColorOnly,
           focusedBorder: OutlineInputBorder(
@@ -359,6 +371,8 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
       style: _style,
       maxLines: 3,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
+      textInputAction: TextInputAction.done,
+      onSubmitted: (_) => FocusScope.of(context).unfocus(),
       decoration: InputDecoration(
           hintStyle: hintTextColorOnly,
           focusedBorder: OutlineInputBorder(
