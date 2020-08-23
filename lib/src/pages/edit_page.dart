@@ -128,9 +128,8 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
               'Reclutador asignado',
               style: _hintText,
             ),
-            value: element.rrhhInterviewer != null
-                ? element.rrhhInterviewer
-                : _recruiterOpt,
+            value:
+                _recruiterOpt != null ? _recruiterOpt : element.rrhhInterviewer,
             items: getDropDownOptions(_assignedRecruiter),
             onChanged: (opt) {
               setState(() {
@@ -238,9 +237,9 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
               style: _hintText,
             ),
             icon: Icon(Icons.arrow_drop_down),
-            value: element.englishLevel != null
-                ? element.englishLevel
-                : _selectedOption,
+            value: _selectedOption != null
+                ? _selectedOption
+                : element.englishLevel,
             items: getDropDownOptions(_englishLevel),
             onChanged: (opt) {
               setState(() {
@@ -304,7 +303,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
               style: _hintText,
             ),
             icon: Icon(Icons.arrow_drop_down),
-            value: element.country != null ? element.country : _countryOpt,
+            value: _countryOpt != null ? _countryOpt : element.country,
             items: getDropDownOptions(_residenceCountry),
             onChanged: (opt) {
               setState(() {
@@ -410,7 +409,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
               style: _hintText,
             ),
             icon: Icon(Icons.arrow_drop_down),
-            value: element.area != null ? element.area : _workOpt,
+            value: _workOpt != null ? _workOpt : element.area,
             items: getDropDownOptions(_workArea),
             onChanged: (opt) {
               setState(() {
