@@ -224,7 +224,19 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    '¿Estás seguro de enviar tu feedback?',
+                    '¿Deseas enviar esta entrevista?',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(117, 117, 117, 1),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Text(
+                    'Una vez enviada a revisión no podrás agregar más información',
                     style: _style,
                     textAlign: TextAlign.center,
                   ),

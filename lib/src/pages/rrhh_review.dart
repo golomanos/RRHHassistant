@@ -124,9 +124,7 @@ class RRHHReview extends StatelessWidget {
             child: RaisedButton(
               textColor: Colors.white,
               onPressed: () {
-                DBProvider.db.hired(element.id).then((response) {
-                  _greetinsAlert(context);
-                });
+                _sendFeedbackAlert(context, element, DBProvider.db.hired, '¿Deseas contratar este candidato?', 'Una vez contratado podrás verlo en en la lista de "Contratado"');
               },
               padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
               color: Color.fromRGBO(0, 45, 116, 0.9),
@@ -143,9 +141,7 @@ class RRHHReview extends StatelessWidget {
             child: RaisedButton(
               elevation: 0.0,
               onPressed: () {
-                DBProvider.db.reject(element.id).then((response) {
-                  _greetinsAlert(context);
-                });
+                _sendFeedbackAlert(context, element, DBProvider.db.reject, '¿Deseas rechazar este candidato?', 'Una vez rechazado podrás verlo en en la lista de "Rechazado"');
               },
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(23.0)),
@@ -160,43 +156,70 @@ class RRHHReview extends StatelessWidget {
             )));
   }
 
-  void _greetinsAlert(BuildContext context) {
+  void _sendFeedbackAlert(BuildContext context, Interviewed element, sendToDatabase, String title, String content) {
     showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return SimpleDialog(children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image(image: AssetImage('assets/images/check_1.png'), height: 40.0,),
-                SizedBox(height: 15.0),
-                Text(
-                  '¡Gracias por formar parte de nuestro equipo de entrevistadores!',
-                  style: _style,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 20.0,),
-                RaisedButton(
-                  padding: EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
-                  onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false),
-                  color: Color.fromRGBO(0, 45, 116, 0.9),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(23.0)
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return SimpleDialog(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(117, 117, 117, 1),
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  child: Text('OK',
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Text(
+                    content,
+                    style: _style,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  RaisedButton(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+                    onPressed: () {
+                      sendToDatabase(element.id).then((response) {
+                        Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false);
+                      });
+                    },
+                    color: Color.fromRGBO(0, 45, 116, 0.9),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(23.0)),
+                    child: Text('SÍ, ENVIAR',
+                        style: GoogleFonts.poppins(
+                            fontSize: 12.0, color: Colors.white)),
+                  ),
+                  SizedBox(height: 15.0),
+                  FlatButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    color: Colors.white,
+                    child: Text(
+                      'NO, CANCELAR',
                       style: GoogleFonts.poppins(
-                          fontSize: 12.0, color: Colors.white)),
-                ),
-                SizedBox(height: 15.0),
-              ],
-            )
-          ],
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0)
-          ),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),);
-      },
-    ).then((value) => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false)).catchError((value) => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false));
+                          fontSize: 12.0,
+                          color: Color.fromRGBO(117, 117, 117, 1)),
+                    ),
+                  )
+                ],
+              )
+            ],
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),
+          );
+        });
   }
 }
