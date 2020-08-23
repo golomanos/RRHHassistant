@@ -66,6 +66,7 @@ class DetailPage extends StatelessWidget {
                 _createSection('Nivel de inglés', element.englishLevel != null ? element.englishLevel : ""),
                 SizedBox(height: 15.0),
                 _createSection('Habilidades y comentarios', element.skills != null ? element.skills : ""),
+                SizedBox(height: 30.0),
                 _getTechnicalInfo(element),
                 SizedBox(height: 30.0),
                 _createRecluter('Reclutador asignado', element.rrhhInterviewer != null ? element.rrhhInterviewer : "")
@@ -168,13 +169,13 @@ class DetailPage extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Divider(height: 3.0,),
+          Divider(height: 5.0,),
           SizedBox(height: 15.0),
           _createSection('Entrevistador técnico', element.technicalInterviewer != null ? element.technicalInterviewer : ""),
           SizedBox(height: 15.0),
           _createSection('Feedback técnico', element.technicalFeedback != null ? element.technicalFeedback : ""),
           SizedBox(height: 15.0),
-          Divider(height: 3.0,),
+          Divider(height: 5.0,),
         ],
       );
     } else {
