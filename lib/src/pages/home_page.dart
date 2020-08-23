@@ -31,15 +31,15 @@ class _HomePageState extends State<HomePage> {
           title: Image(
             alignment: AlignmentDirectional.centerStart,
             image: AssetImage('assets/images/teravisionlogo.png'),
-            height: 21.0,
+            height: 23.0,
           ),
           actions: [
             IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Color.fromRGBO(0, 45, 116, 1),
-              ),
-              onPressed: () {
+                icon: Image(
+                  image: AssetImage('assets/images/filter_icon.png'),
+                  height: 23.0,
+                ),
+                onPressed: () {
                 showSearch(context: context, delegate: DataSearch());
               },
             )
@@ -98,7 +98,8 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       child: Card(
         margin: EdgeInsets.only(right: 16.0, left: 16.0, top: 8.0, bottom: 8.0),
-        elevation: 5.0,
+        elevation: 3.0,
+        shadowColor: Color.fromRGBO(185, 185, 185, 0.3),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         child: Container(
@@ -154,8 +155,10 @@ class _HomePageState extends State<HomePage> {
           Navigator.pushNamed(context, 'rrhhinterview', arguments: element);
         } else if ( element.status == 'Technical Interview') {
           Navigator.pushNamed(context, 'techfeedback', arguments: element);
-        } else {
+        } else if( element.status == 'RRHH review') {
           Navigator.pushNamed(context, 'rrhhreview', arguments: element);
+        } else {
+          Navigator.pushNamed(context, 'detail', arguments: element);
         }
       } 
     );

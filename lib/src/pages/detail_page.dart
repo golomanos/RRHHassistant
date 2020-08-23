@@ -66,6 +66,7 @@ class DetailPage extends StatelessWidget {
                 _createSection('Nivel de inglés', element.englishLevel != null ? element.englishLevel : ""),
                 SizedBox(height: 15.0),
                 _createSection('Habilidades y comentarios', element.skills != null ? element.skills : ""),
+                _getTechnicalInfo(element),
                 SizedBox(height: 30.0),
                 _createRecluter('Reclutador asignado', element.rrhhInterviewer != null ? element.rrhhInterviewer : "")
               ],
@@ -159,6 +160,25 @@ class DetailPage extends StatelessWidget {
       await launch(url);
     } else {
       throw 'Could not launch $url';
+    }
+  }
+
+  Widget _getTechnicalInfo(Interviewed element) {
+    if( element.technicalFeedback != null && element.technicalInterviewer != null) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Divider(),
+          SizedBox(height: 15.0),
+          _createSection('Entrevistador técnico', element.technicalInterviewer != null ? element.technicalInterviewer : ""),
+          SizedBox(height: 15.0),
+          _createSection('Feedback técnico', element.technicalFeedback != null ? element.technicalFeedback : ""),
+          SizedBox(height: 15.0),
+          Divider(),
+        ],
+      );
+    } else {
+      return Container();
     }
   }
 }

@@ -182,7 +182,7 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
           padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
           color: Color.fromRGBO(0, 45, 116, 0.9),
           child: Text(
-            'ENVIAR A ENTREVISTA TÉCNICA',
+            'ENVIAR A REVISIÓN DE RRHH',
             style: GoogleFonts.poppins(fontSize: 12.0, color: Colors.white),
           ),
         )));
