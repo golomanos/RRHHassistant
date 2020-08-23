@@ -134,8 +134,10 @@ class DataSearch extends SearchDelegate {
           Navigator.pushNamed(context, 'rrhhinterview', arguments: element);
         } else if ( element.status == 'Technical Interview') {
           Navigator.pushNamed(context, 'techfeedback', arguments: element);
-        } else {
+        } else if( element.status == 'RRHH review') {
           Navigator.pushNamed(context, 'rrhhreview', arguments: element);
+        } else {
+          Navigator.pushNamed(context, 'detail', arguments: element);
         }
       },
     );
