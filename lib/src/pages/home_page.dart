@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                     color: Color.fromRGBO(117, 117, 117, 1)),
               ),
               SizedBox(height: 5.0),
-              Text('${element.area} . ${element.country}',
+              Text('${element.area}  ·  ${element.country}',
                   style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.w500,
@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> {
   Widget _showMessage() {
     return Center(
       child: Text(
-        '(+) Add a new candidate in the list',
+        '(+) Agrega un nuevo candidato a la lista',
         style: TextStyle(
             color: Color.fromRGBO(185, 185, 185, 1),
             fontSize: 12.0,
