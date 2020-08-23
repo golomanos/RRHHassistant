@@ -441,6 +441,7 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
         }
         return null;
       },
+      textCapitalization: TextCapitalization.sentences,
       style: _style,
       maxLines: 3,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
@@ -593,5 +594,4 @@ class _AddCandidatePageState extends State<AddCandidatePage> {
         .catchError((value) => Navigator.pushNamedAndRemoveUntil(
             context, "/", (Route<dynamic> route) => false));
   }
-
 }

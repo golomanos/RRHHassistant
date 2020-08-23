@@ -465,6 +465,7 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
         }
         return null;
       },
+      textCapitalization: TextCapitalization.sentences,
       initialValue: element.skills,
       style: _style,
       maxLines: 3,
