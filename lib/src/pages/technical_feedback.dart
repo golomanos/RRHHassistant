@@ -167,6 +167,7 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
         }
         return null;
       },
+      textCapitalization: TextCapitalization.sentences,
       textAlignVertical: TextAlignVertical.top,
       style: _style,
       maxLines: 10,
