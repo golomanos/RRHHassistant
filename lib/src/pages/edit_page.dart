@@ -521,7 +521,8 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
                 status: 'RRHH Interview');
 
             DBProvider.db.updateInterviewed(element.id, interviewed);
-            Navigator.pushNamed(context, '/');
+            _greetinsAlert(context);
+            //Navigator.pushNamed(context, '/');
           },
           color: Color.fromRGBO(0, 45, 116, 0.9),
           child: Text(
@@ -542,5 +543,57 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
       ));
     });
     return itemlist;
+  }
+
+  void _greetinsAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return SimpleDialog(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image(
+                  image: AssetImage('assets/images/check_1.png'),
+                  height: 40.0,
+                ),
+                SizedBox(height: 15.0),
+                Text(
+                  'Se han guardado los cambios',
+                  style: _style,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                RaisedButton(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                      context, "/", (Route<dynamic> route) => false),
+                  color: Color.fromRGBO(0, 45, 116, 0.9),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(23.0)),
+                  child: Text('OK',
+                      style: GoogleFonts.poppins(
+                          fontSize: 12.0, color: Colors.white)),
+                ),
+                SizedBox(height: 15.0),
+              ],
+            )
+          ],
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),
+        );
+      },
+    )
+        .then((value) => Navigator.pushNamedAndRemoveUntil(
+            context, "/", (Route<dynamic> route) => false))
+        .catchError((value) => Navigator.pushNamedAndRemoveUntil(
+            context, "/", (Route<dynamic> route) => false));
   }
 }
