@@ -204,7 +204,7 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
                 ),
                 SizedBox(height: 20.0,),
                 RaisedButton(
-                  padding: EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
+                  padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
                   onPressed: () {
                     DBProvider.db.addTechnicalFeedback(_techFeedback, _assignedRecruiters, element.id).then( (response) {
                       _greetinsAlert(context);
@@ -257,7 +257,7 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
                 SizedBox(height: 20.0,),
                 RaisedButton(
                   padding: EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
-                  onPressed: () => Navigator.pushNamed(context, '/'),
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false),
                   color: Color.fromRGBO(0, 45, 116, 0.9),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(23.0)
@@ -275,6 +275,6 @@ class _TechnicalFeedbackPageState extends State<TechnicalFeedbackPage> {
           ),
           contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),);
       },
-    ).then((value) => Navigator.pushNamed(context, '/')).catchError((value) => Navigator.pushNamed(context, '/'));
+    ).then((value) => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false)).catchError((value) => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false));
   }
 }

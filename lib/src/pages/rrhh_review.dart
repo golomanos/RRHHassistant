@@ -179,7 +179,7 @@ class RRHHReview extends StatelessWidget {
                 SizedBox(height: 20.0,),
                 RaisedButton(
                   padding: EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
-                  onPressed: () => Navigator.pushNamed(context, '/'),
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false),
                   color: Color.fromRGBO(0, 45, 116, 0.9),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(23.0)
@@ -197,6 +197,6 @@ class RRHHReview extends StatelessWidget {
           ),
           contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),);
       },
-    ).then((value) => Navigator.pushNamed(context, '/')).catchError((value) => Navigator.pushNamed(context, '/'));
+    ).then((value) => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false)).catchError((value) => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false));
   }
 }

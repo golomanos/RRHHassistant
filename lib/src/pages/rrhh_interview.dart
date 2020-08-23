@@ -230,7 +230,7 @@ class RRHHInterview extends StatelessWidget {
                 RaisedButton(
                   padding:
                       EdgeInsets.symmetric(horizontal: 100.0, vertical: 15.0),
-                  onPressed: () => Navigator.pushNamed(context, '/'),
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false),
                   color: Color.fromRGBO(0, 45, 116, 0.9),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(23.0)),
@@ -249,8 +249,8 @@ class RRHHInterview extends StatelessWidget {
         );
       },
     )
-        .then((value) => Navigator.pushNamed(context, '/'))
-        .catchError((value) => Navigator.pushNamed(context, '/'));
+        .then((value) => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false))
+        .catchError((value) => Navigator.pushNamedAndRemoveUntil(context, "/", (Route<dynamic> route) => false));
   }
 
   void _launchURL(String url) async {
