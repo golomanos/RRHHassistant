@@ -114,34 +114,47 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
   }
 
   _createRecruiter(Interviewed element) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: Colors.white,
-          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton(
-            isExpanded: true,
-            hint: Text(
-              'Reclutador asignado',
-              style: _hintText,
-            ),
-            value:
-                _recruiterOpt != null ? _recruiterOpt : element.rrhhInterviewer,
-            items: getDropDownOptions(_assignedRecruiter),
-            onChanged: (opt) {
-              setState(() {
-                _recruiterOpt = opt;
-              });
-            }),
-      ),
-    );
+    return DropdownButtonFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Campo requerido *';
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+        ),
+        isExpanded: true,
+        hint: Text(
+          'Reclutador asignado',
+          style: _hintText,
+        ),
+        value: _recruiterOpt != null ? _recruiterOpt : element.rrhhInterviewer,
+        items: getDropDownOptions(_assignedRecruiter),
+        onChanged: (opt) {
+          setState(() {
+            _recruiterOpt = opt;
+          });
+        });
   }
 
   Widget _linkedInUrl(Interviewed element) {
     return TextFormField(
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Campo requerido *';
+        }
+        return null;
+      },
       initialValue: element.linkedinUrl,
       style: _style,
       textInputAction: TextInputAction.next,
@@ -169,34 +182,46 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
   }
 
   Widget _jobSeat(Interviewed element) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: Colors.white,
-          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton(
-            isExpanded: true,
-            hint: Text(
-              'Cargo laboral postulado',
-              style: _hintText,
-            ),
-            icon: Icon(Icons.arrow_drop_down),
-            value: _workOpt != null ? _workOpt : element.area,
-            items: getDropDownOptions(_workArea),
-            onChanged: (opt) {
-              setState(() {
-                _workOpt = opt;
-              });
-            }),
-      ),
-    );
+    return DropdownButtonFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Campo requerido *';
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+        ),
+        hint: Text(
+          'Cargo laboral postulado',
+          style: _hintText,
+        ),
+        value: _workOpt != null ? _workOpt : element.area,
+        items: getDropDownOptions(_workArea),
+        onChanged: (opt) {
+          setState(() {
+            _workOpt = opt;
+          });
+        });
   }
 
   Widget _company(Interviewed element) {
     return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Campo requerido *';
+        }
+        return null;
+      },
       initialValue: element.company,
       style: _style,
       textInputAction: TextInputAction.next,
@@ -226,6 +251,12 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
 
   Widget _createName(Interviewed element) {
     return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Campo requerido *';
+        }
+        return null;
+      },
       initialValue: element.firstName,
       style: _style,
       textInputAction: TextInputAction.next,
@@ -255,6 +286,12 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
 
   Widget _createLastName(Interviewed element) {
     return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Campo requerido *';
+        }
+        return null;
+      },
       initialValue: element.lastName,
       style: _style,
       autofocus: false,
@@ -284,34 +321,48 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
   }
 
   Widget _country(Interviewed element) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: Colors.white,
-          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton(
-            isExpanded: true,
-            hint: Text(
-              'País de residencia',
-              style: _hintText,
-            ),
-            icon: Icon(Icons.arrow_drop_down),
-            value: _countryOpt != null ? _countryOpt : element.country,
-            items: getDropDownOptions(_residenceCountry),
-            onChanged: (opt) {
-              setState(() {
-                _countryOpt = opt;
-              });
-            }),
-      ),
-    );
+    return DropdownButtonFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Campo requerido *';
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+        ),
+        isExpanded: true,
+        hint: Text(
+          'País de residencia',
+          style: _hintText,
+        ),
+        icon: Icon(Icons.arrow_drop_down),
+        value: _countryOpt != null ? _countryOpt : element.country,
+        items: getDropDownOptions(_residenceCountry),
+        onChanged: (opt) {
+          setState(() {
+            _countryOpt = opt;
+          });
+        });
   }
 
   Widget _createEmail(Interviewed element) {
     return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Campo requerido *';
+        }
+        return null;
+      },
       initialValue: element.email,
       style: _style,
       cursorColor: Color.fromRGBO(0, 45, 116, 1),
@@ -340,6 +391,12 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
 
   Widget _createPhone(Interviewed element) {
     return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Campo requerido *';
+        }
+        return null;
+      },
       initialValue: element.phone,
       style: _style,
       textInputAction: TextInputAction.next,
@@ -367,36 +424,47 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
   }
 
   Widget _englishLevelDropDown(Interviewed element) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: Colors.white,
-          border: Border.all(color: Color.fromRGBO(226, 226, 226, 1))),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton(
-            isExpanded: true,
-            hint: Text(
-              'Nivel de Inglés',
-              style: _hintText,
-            ),
-            icon: Icon(Icons.arrow_drop_down),
-            value: _selectedOption != null
-                ? _selectedOption
-                : element.englishLevel,
-            items: getDropDownOptions(_englishLevel),
-            onChanged: (opt) {
-              setState(() {
-                _selectedOption = opt;
-              });
-            }),
-      ),
-    );
+    return DropdownButtonFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Campo requerido *';
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          hintStyle: hintTextColorOnly,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Color.fromRGBO(0, 45, 116, 1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: Color.fromRGBO(226, 226, 226, 1))),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+        ),
+        isExpanded: true,
+        hint: Text(
+          'Nivel de Inglés',
+          style: _hintText,
+        ),
+        value: _selectedOption != null ? _selectedOption : element.englishLevel,
+        items: getDropDownOptions(_englishLevel),
+        onChanged: (opt) {
+          setState(() {
+            _selectedOption = opt;
+          });
+        });
   }
 
   Widget _createSkills(Interviewed element) {
     return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Campo requerido *';
+        }
+        return null;
+      },
       initialValue: element.skills,
       style: _style,
       maxLines: 3,
@@ -421,17 +489,6 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
         });
       },
     );
-  }
-
-  List<DropdownMenuItem<String>> getDropDownOptions(List<String> array) {
-    List<DropdownMenuItem<String>> itemlist = new List();
-    array.forEach((item) {
-      itemlist.add(DropdownMenuItem(
-        child: Text(item),
-        value: item,
-      ));
-    });
-    return itemlist;
   }
 
   Widget _submitButton(Interviewed element) {
@@ -474,5 +531,16 @@ class _EditCandidatePageState extends State<EditCandidatePage> {
         ),
       ),
     );
+  }
+
+  List<DropdownMenuItem<String>> getDropDownOptions(List<String> array) {
+    List<DropdownMenuItem<String>> itemlist = new List();
+    array.forEach((item) {
+      itemlist.add(DropdownMenuItem(
+        child: Text(item),
+        value: item,
+      ));
+    });
+    return itemlist;
   }
 }
